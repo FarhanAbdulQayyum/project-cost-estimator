@@ -1,7 +1,5 @@
 export let data: IData = { resources: [], projects: [] };
 
-export let isData = false;
-
 export const getNewId = () => {
     if (!data.projects.length) return 1
 

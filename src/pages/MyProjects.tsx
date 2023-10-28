@@ -1,6 +1,7 @@
-import { Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
-import { data, getNewId, isData } from "../data/data";
+import { Box, Button, Grid, HStack, Heading, Text } from "@chakra-ui/react";
+import { data, getNewId } from "../data/data";
 import { useNavigate } from 'react-router-dom';
+import { ProjectItem } from "../components/ProjectItem";
 
 export const MyProjects = () => {
     const navigate = useNavigate();
@@ -10,8 +11,16 @@ export const MyProjects = () => {
         data.projects.push({ id: newId, name: `New Project ${newId}`, children: [] })
         navigate('/project-details', { state: { id: newId } })
     }
-    if (isData) {
-
+    if (data.projects.length) {
+        return (
+            <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+                {data.projects.map(project => (
+                    <Box>
+                        <ProjectItem name={project.name} />
+                    </Box>
+                ))}
+            </Grid>
+        )
     } else {
         return (
             <Box position="absolute" top="40%" right="30%" color="gray.600">
