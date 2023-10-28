@@ -1,4 +1,4 @@
-import { Box, Button, Grid, HStack, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, HStack, Heading, Text } from "@chakra-ui/react";
 import { data, getNewId } from "../data/data";
 import { useNavigate } from 'react-router-dom';
 import { ProjectItem } from "../components/ProjectItem";
@@ -13,11 +13,11 @@ export const MyProjects = () => {
     }
     if (data.projects.length) {
         return (
-            <Grid marginTop="10px" templateColumns='repeat(5, 1fr)' gap={6}>
+            <Grid templateColumns='repeat(5, 1fr)' gap={6} width="100%">
                 {data.projects.map(project => (
-                    <Box>
+                    <GridItem w="100%" h="10">
                         <ProjectItem name={project.name} />
-                    </Box>
+                    </GridItem>
                 ))}
             </Grid>
         )

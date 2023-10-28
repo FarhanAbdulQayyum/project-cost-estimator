@@ -8,11 +8,11 @@ function App() {
   return (
     <Box h="100vh" overflow="hidden">
       <Header />
-      <HStack gap={6} height="100%" alignItems="top">
+      <HStack gap={0} height="100%" alignItems="top">
         <Box width="17%">
           <SideBar />
         </Box>
-        <Box>
+        <Box width="83%" p={5}>
           <Outlet />
         </Box>
       </HStack>
