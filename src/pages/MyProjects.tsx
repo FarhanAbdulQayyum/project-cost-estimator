@@ -13,7 +13,7 @@ export const MyProjects = () => {
     }
     if (data.projects.length) {
         return (
-            <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+            <Grid marginTop="10px" templateColumns='repeat(5, 1fr)' gap={6}>
                 {data.projects.map(project => (
                     <Box>
                         <ProjectItem name={project.name} />
