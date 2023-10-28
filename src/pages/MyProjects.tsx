@@ -15,8 +15,8 @@ export const MyProjects = () => {
         return (
             <Grid templateColumns='repeat(5, 1fr)' gap={6} width="100%">
                 {data.projects.map(project => (
-                    <GridItem w="100%" h="10">
-                        <ProjectItem name={project.name} />
+                    <GridItem key={project.id} w="100%" h="10">
+                        <ProjectItem name={project.name} id={project.id} />
                     </GridItem>
                 ))}
             </Grid>

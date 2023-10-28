@@ -1,5 +1,6 @@
 import { Box, HStack, Image, Text } from "@chakra-ui/react"
 import projectImageIcon from "../assets/project-icon.png"
+import { useNavigate } from 'react-router-dom';
 
 const ProjectItemStyles = {
     py: "5px",
@@ -13,13 +14,21 @@ const ProjectItemStyles = {
     }
 }
 
-export const ProjectItem = ({ name }: { name: string }) => (
-    <Box sx={ProjectItemStyles}>
-        <HStack spacing="0px">
-            <Box height="40px" width="40px">
-                <Image src={projectImageIcon} />
-            </Box>
-            <Text>{name}</Text>
-        </HStack>
-    </Box>
-)
+export const ProjectItem = ({ name, id }: { name: string, id: number }) => {
+    const navigate = useNavigate();
+
+    const onProjectClick = (id: number) => {
+        navigate('/project-details', { state: { id } })
+    }
+
+    return (
+        <Box sx={ProjectItemStyles} onClick={() => onProjectClick(id)}>
+            <HStack spacing="0px">
+                <Box height="40px" width="40px">
+                    <Image src={projectImageIcon} />
+                </Box>
+                <Text>{name}</Text>
+            </HStack>
+        </Box>
+    )
+}
