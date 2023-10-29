@@ -21,8 +21,7 @@ export const ProjectDetails = () => {
 
             {
                 project.children.map(child => {
-                    if (child.type === 'sub_project') return <SubProject subProject={child} />
-                    if (child.type === 'resource') return <ProjectResource projectResource={child} />
+                    return <SubProject subProject={child} />
                 })
             }
 

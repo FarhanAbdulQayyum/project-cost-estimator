@@ -4,15 +4,7 @@ export const mockProject: IProject = {
     total: 4000,
     children: [
         {
-            type: "resource",
-            name: "Fauji Cement",
-            unitPrice: 1000,
-            sku: "kg",
-            quantity: 2,
-            total: 2000,
-        },
-        {
-            type: "sub_project",
+            type: "resource_container",
             name: "Foundation",
             total: 2000,
             children: [
@@ -23,6 +15,36 @@ export const mockProject: IProject = {
                     sku: "kg",
                     quantity: 2,
                     total: 2000,
+                },
+            ],
+        },
+        {
+            type: "sub_project",
+            name: "Remaning",
+            total: 12000,
+            children: [
+                {
+                    type: "resource_container",
+                    name: "Grey Structure",
+                    total: 12000,
+                    children: [
+                        {
+                            type: "resource",
+                            name: "Fauji Cement",
+                            unitPrice: 1000,
+                            sku: "kg",
+                            quantity: 2,
+                            total: 2000,
+                        },
+                        {
+                            type: "resource",
+                            name: "Bricks",
+                            unitPrice: 10,
+                            sku: "unit",
+                            quantity: 1000,
+                            total: 10000,
+                        },
+                    ],
                 },
             ],
         },

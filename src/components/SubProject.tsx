@@ -7,6 +7,7 @@ import {
     Box,
 } from '@chakra-ui/react'
 import { ProjectResource } from './ProjectResource'
+import { ProjectResourceHeader } from './ProjectResourceHeader'
 
 export const SubProject = ({ subProject }: { subProject: ISubProject }) => {
     return (
@@ -23,14 +24,26 @@ export const SubProject = ({ subProject }: { subProject: ISubProject }) => {
                         <AccordionIcon />
                     </AccordionButton>
                 </h2>
-                <AccordionPanel pb={4}>
-                    {
-                        subProject.children.map(child => {
-                            if (child.type === 'sub_project') return <SubProject subProject={child} />
-                            if (child.type === 'resource') return <ProjectResource projectResource={child} />
-                        })
-                    }
-                </AccordionPanel>
+                {subProject.type === 'sub_project' &&
+                    <AccordionPanel pb={4}>
+                        {
+                            subProject.children.map((child: ISubProject) => {
+                                return <SubProject subProject={child} />
+                            })
+                        }
+                    </AccordionPanel>
+                }
+                {subProject.type === 'resource_container' &&
+                    <AccordionPanel pb={4}>
+                        <ProjectResourceHeader />
+                        {
+                            subProject.children.map((child: IProjectResource) => {
+                                return <ProjectResource projectResource={child} />
+                            })
+                        }
+                    </AccordionPanel>
+                }
+
             </AccordionItem>
         </Accordion>
     )

@@ -7,18 +7,23 @@ interface IProjectResource {
     total: number;
 }
 
+type SubProjectOrResourceContainer<T> =
+    T extends 'sub_project' ? ISubProject[] :
+    T extends 'resource_container' ? IProjectResource[] :
+    T extends 'unkown' ? any[] : never;
+
 interface ISubProject {
-    type: 'sub_project'
+    type: 'unkown' | 'sub_project' | 'resource_container'
     name: string;
     total: number;
-    children: (ISubProject[] | IProjectResource[])
+    children: subProjectOrResourceContainer<ISubProject['type']>
 }
 
 interface IProject {
     id: number;
     name: string;
     total: number;
-    children: (ISubProject | IProjectResource)[];
+    children: ISubProject[];
 }
 
 interface IResource {
