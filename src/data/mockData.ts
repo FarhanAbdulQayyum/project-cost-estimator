@@ -59,13 +59,13 @@ export const mockProject: IProject = {
                             ],
                         },
                         {
-                            id: 5,
+                            id: 8,
                             type: "resource_container",
                             name: "Grey Structure",
                             total: 12000,
                             children: [
                                 {
-                                    id: 6,
+                                    id: 9,
                                     type: "resource",
                                     name: "Fauji Cement",
                                     unitPrice: 1000,
@@ -74,7 +74,7 @@ export const mockProject: IProject = {
                                     total: 2000,
                                 },
                                 {
-                                    id: 7,
+                                    id: 10,
                                     type: "resource",
                                     name: "Bricks",
                                     unitPrice: 10,
@@ -94,19 +94,19 @@ export const mockProject: IProject = {
                     total: 12000,
                     children: [
                         {
-                            id: 11,
+                            id: 12,
                             type: "sub_project",
                             name: "Remaning",
                             total: 12000,
                             children: [
                                 {
-                                    id: 5,
+                                    id: 13,
                                     type: "resource_container",
                                     name: "Grey Structure",
                                     total: 12000,
                                     children: [
                                         {
-                                            id: 6,
+                                            id: 14,
                                             type: "resource",
                                             name: "Fauji Cement",
                                             unitPrice: 1000,
@@ -115,7 +115,7 @@ export const mockProject: IProject = {
                                             total: 2000,
                                         },
                                         {
-                                            id: 7,
+                                            id: 15,
                                             type: "resource",
                                             name: "Bricks",
                                             unitPrice: 10,
@@ -126,13 +126,13 @@ export const mockProject: IProject = {
                                     ],
                                 },
                                 {
-                                    id: 5,
+                                    id: 16,
                                     type: "resource_container",
                                     name: "Grey Structure",
                                     total: 12000,
                                     children: [
                                         {
-                                            id: 6,
+                                            id: 17,
                                             type: "resource",
                                             name: "Fauji Cement",
                                             unitPrice: 1000,
@@ -141,7 +141,7 @@ export const mockProject: IProject = {
                                             total: 2000,
                                         },
                                         {
-                                            id: 7,
+                                            id: 18,
                                             type: "resource",
                                             name: "Bricks",
                                             unitPrice: 10,
@@ -154,13 +154,13 @@ export const mockProject: IProject = {
                             ],
                         },
                         {
-                            id: 5,
+                            id: 19,
                             type: "resource_container",
                             name: "Grey Structure",
                             total: 12000,
                             children: [
                                 {
-                                    id: 6,
+                                    id: 20,
                                     type: "resource",
                                     name: "Fauji Cement",
                                     unitPrice: 1000,
@@ -169,7 +169,7 @@ export const mockProject: IProject = {
                                     total: 2000,
                                 },
                                 {
-                                    id: 7,
+                                    id: 21,
                                     type: "resource",
                                     name: "Bricks",
                                     unitPrice: 10,
@@ -180,13 +180,13 @@ export const mockProject: IProject = {
                             ],
                         },
                         {
-                            id: 5,
+                            id: 22,
                             type: "resource_container",
                             name: "Grey Structure",
                             total: 12000,
                             children: [
                                 {
-                                    id: 6,
+                                    id: 23,
                                     type: "resource",
                                     name: "Fauji Cement",
                                     unitPrice: 1000,
@@ -195,7 +195,7 @@ export const mockProject: IProject = {
                                     total: 2000,
                                 },
                                 {
-                                    id: 7,
+                                    id: 24,
                                     type: "resource",
                                     name: "Bricks",
                                     unitPrice: 10,

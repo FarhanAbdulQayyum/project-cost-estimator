@@ -15,7 +15,7 @@ type SubProjectOrResourceContainer<T> =
 
 interface ISubProject {
     id: number
-    type: 'unkown' | 'sub_project' | 'resource_container'
+    type: 'unknown' | 'sub_project' | 'resource_container'
     name: string;
     total: number;
     children: subProjectOrResourceContainer<ISubProject['type']>
