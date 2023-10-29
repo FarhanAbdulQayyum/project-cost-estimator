@@ -9,12 +9,13 @@ import {
 import { ProjectResource } from './ProjectResource'
 import { ProjectResourceHeader } from './ProjectResourceHeader'
 
-export const SubProject = ({ subProject }: { subProject: ISubProject }) => {
+export const SubProject = ({ subProject, isRoot }: { subProject: ISubProject, isRoot: boolean }) => {
+    const accordianButtonBgColor = subProject.type === 'sub_project' ? isRoot ? 'blue.400' : 'gray.300' : 'green.300';
     return (
-        <Accordion allowMultiple>
-            <AccordionItem>
+        <Accordion allowMultiple border="none">
+            <AccordionItem border="none">
                 <h2>
-                    <AccordionButton>
+                    <AccordionButton _hover={{ background: accordianButtonBgColor }} bgColor={accordianButtonBgColor}>
                         <Box as="span" flex='1' textAlign='left'>
                             {subProject.name}
                         </Box>
@@ -25,16 +26,16 @@ export const SubProject = ({ subProject }: { subProject: ISubProject }) => {
                     </AccordionButton>
                 </h2>
                 {subProject.type === 'sub_project' &&
-                    <AccordionPanel pb={4}>
+                    <AccordionPanel border="none" mb={15} pr={0} bgColor={accordianButtonBgColor}>
                         {
                             subProject.children.map((child: ISubProject) => {
-                                return <SubProject key={child.id} subProject={child} />
+                                return <SubProject key={child.id} subProject={child} isRoot={false} />
                             })
                         }
                     </AccordionPanel>
                 }
                 {subProject.type === 'resource_container' &&
-                    <AccordionPanel pb={4}>
+                    <AccordionPanel border="none" mb={15} pr={0} bgColor="green.100">
                         <ProjectResourceHeader />
                         {
                             subProject.children.map((child: IProjectResource) => {
