@@ -23,7 +23,7 @@ export const ProjectDetails = () => {
 
                 {
                     project.children.map(child => {
-                        return <SubProject key={child.id} subProject={child} isRoot={true} />
+                        return <SubProject key={child.id} subProject={child} isDark={true} />
                     })
                 }
             </Box>
