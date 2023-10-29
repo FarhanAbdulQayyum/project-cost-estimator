@@ -1,4 +1,4 @@
-import { HStack, Heading, Text } from "@chakra-ui/react";
+import { Box, HStack, Heading, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
 import { getProjectById } from "../data/data";
 import { useState } from "react";
@@ -15,15 +15,18 @@ export const ProjectDetails = () => {
     return (
         <>
             <HStack>
-                <Heading>{project?.name}</Heading>
+                <Heading fontSize="20px">{project?.name}</Heading>
                 <Text>{project.total}</Text>
             </HStack>
 
-            {
-                project.children.map(child => {
-                    return <SubProject subProject={child} />
-                })
-            }
+            <Box height="80vh" overflowY="scroll" overflowX="hidden">
+
+                {
+                    project.children.map(child => {
+                        return <SubProject key={child.id} subProject={child} />
+                    })
+                }
+            </Box>
 
         </>
     )

@@ -11,7 +11,7 @@ import { ProjectResourceHeader } from './ProjectResourceHeader'
 
 export const SubProject = ({ subProject }: { subProject: ISubProject }) => {
     return (
-        <Accordion>
+        <Accordion allowMultiple>
             <AccordionItem>
                 <h2>
                     <AccordionButton>
@@ -28,7 +28,7 @@ export const SubProject = ({ subProject }: { subProject: ISubProject }) => {
                     <AccordionPanel pb={4}>
                         {
                             subProject.children.map((child: ISubProject) => {
-                                return <SubProject subProject={child} />
+                                return <SubProject key={child.id} subProject={child} />
                             })
                         }
                     </AccordionPanel>
@@ -38,7 +38,7 @@ export const SubProject = ({ subProject }: { subProject: ISubProject }) => {
                         <ProjectResourceHeader />
                         {
                             subProject.children.map((child: IProjectResource) => {
-                                return <ProjectResource projectResource={child} />
+                                return <ProjectResource key={child.id} projectResource={child} />
                             })
                         }
                     </AccordionPanel>

@@ -1,4 +1,5 @@
 interface IProjectResource {
+    id: number
     name: string;
     type: 'resource';
     unitPrice: number;
@@ -13,6 +14,7 @@ type SubProjectOrResourceContainer<T> =
     T extends 'unkown' ? any[] : never;
 
 interface ISubProject {
+    id: number
     type: 'unkown' | 'sub_project' | 'resource_container'
     name: string;
     total: number;
