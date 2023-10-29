@@ -8,7 +8,7 @@ export const MyProjects = () => {
 
     const createProject = () => {
         const newId = getNewId();
-        data.projects.push({ id: newId, name: `New Project ${newId}`, children: [] })
+        data.projects.push({ id: newId, name: `New Project ${newId}`, total: 0, children: [] })
         navigate('/project-details', { state: { id: newId } })
     }
     if (data.projects.length) {

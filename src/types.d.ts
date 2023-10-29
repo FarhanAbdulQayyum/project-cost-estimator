@@ -2,19 +2,22 @@ interface IProjectResource {
     name: string;
     type: 'resource';
     unitPrice: number;
-    sku: number;
+    sku: string;
     quantity: number;
+    total: number;
 }
 
 interface ISubProject {
     type: 'sub_project'
     name: string;
-    children: (ISubProject | IProjectResource)[]
+    total: number;
+    children: (ISubProject[] | IProjectResource[])
 }
 
 interface IProject {
     id: number;
     name: string;
+    total: number;
     children: (ISubProject | IProjectResource)[];
 }
 

@@ -9,3 +9,5 @@ export const getNewId = () => {
 
     return previousId + 1;
 }
+
+export const getProjectById = (id: number) => data.projects.find(project => project.id === id);
