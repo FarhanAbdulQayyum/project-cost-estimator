@@ -49,7 +49,6 @@ export const addResourceInState = (id: number, project: IProject, resource: Part
         })
     }
     return project
-
 }
 export const updateResourceInState = (id: number, project: IProject, updateResource: Partial<IProjectResource>): IProject => {
     const node = findNodeById(project, id);
@@ -58,7 +57,28 @@ export const updateResourceInState = (id: number, project: IProject, updateResou
         node.children[resouceToUpdateIndex] = updateResource
     }
     return project
+}
 
+const calculateTotal = (project: IProject) => {
+    const calTotals = (project: any) => {
+        if (project.type === "resource_container") {
+            project.total = project.children.reduce((total: number, child: IProjectResource) => {
+                return total + child.total
+            }, 0)
+            return project.total
+        } else {
+            project.total = project.children.reduce((total: number, child: ISubProject) => {
+                return total + calTotals(child)
+            }, 0)
+            return project.total
+        }
+    }
+    calTotals(project)
+    return project
+}
+
+export const updateTotalsInProject = (project: IProject) => {
+    return calculateTotal(project)
 }
 
 export const addSubProject = (id: number, project: IProject, type = "sub_project"): IProject => {

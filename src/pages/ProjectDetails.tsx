@@ -1,6 +1,6 @@
 import { Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
-import { addResourceInState, addSubProject, getProjectById, renameItem, updateResourceInState } from "../data/data";
+import { addResourceInState, addSubProject, getProjectById, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
 import { mockData, } from "../data/mockData";
@@ -27,14 +27,19 @@ export const ProjectDetails = () => {
 
     const addResource = (resource: Partial<IProjectResource>) => {
         const _project = addResourceInState(currentResourceContainerId, project, resource);
-        setProject({ ..._project });
+        updateTotals(_project)
         setIsResourceModalVisible(false);
     }
 
     const updateResource = (resource: Partial<IProjectResource>) => {
         const _project = updateResourceInState(currentResourceContainerId, project, resource);
-        setProject({ ..._project });
+        updateTotals(_project)
         setIsResourceModalVisible(false);
+    }
+
+    const updateTotals = (project: IProject) => {
+        const projectWithUpdatedTotals = updateTotalsInProject(project)
+        setProject({ ...projectWithUpdatedTotals })
     }
 
     const saveResource = (resource: Partial<IProjectResource>) => {
