@@ -9,23 +9,24 @@ interface IAddResourceModalProps {
     resourceToUpdate: Partial<IProjectResource>
 }
 
+interface IAddResourceForm {
+    resource: Partial<IProjectResource>
+}
+
 export const AddResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate }: IAddResourceModalProps) => {
     const [total, setTotal] = useState(0);
 
-    const { register, getValues, watch } = useForm<Partial<IProjectResource>>({
-        defaultValues: {
-            name: resourceToUpdate.name,
-            unitPrice: resourceToUpdate.unitPrice,
-            sku: resourceToUpdate.sku,
-            quantity: resourceToUpdate.quantity
-        },
-    })
+    const { register, getValues, watch, reset, setValue } = useForm<IAddResourceForm>()
 
-    const watchFields = watch(["unitPrice", "quantity"])
+    const watchFields = watch(["resource.unitPrice", "resource.quantity"])
 
     useEffect(() => {
-        const _quantity = getValues("quantity");
-        const _unitPrice = getValues("unitPrice");
+        setValue("resource", resourceToUpdate);
+    }, [])
+
+    useEffect(() => {
+        const _quantity = getValues("resource.quantity");
+        const _unitPrice = getValues("resource.unitPrice");
         setTotal(_quantity && _unitPrice ? _quantity * _unitPrice : 0);
     }, [watchFields])
 
@@ -37,14 +38,14 @@ export const AddResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate }: 
                 <ModalCloseButton />
                 <ModalBody>
                     <Text>Resource Name:</Text>
-                    <Input {...register("name")} />
+                    <Input {...register("resource.name")} />
 
                     <Text>Price:</Text>
-                    <Input type="number" {...register("unitPrice")} />
+                    <Input type="number" {...register("resource.unitPrice")} />
                     <Text>per</Text>
-                    <Input {...register("sku")} />
+                    <Input {...register("resource.sku")} />
                     <Text>Quantity:</Text>
-                    <Input type="number" {...register("quantity")} />
+                    <Input type="number" {...register("resource.quantity")} />
                     <Text>Total: {total}</Text>
                 </ModalBody>
 
@@ -52,7 +53,7 @@ export const AddResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate }: 
                     <Button onClick={onClose}>
                         Discard
                     </Button>
-                    <Button colorScheme='blue' ml={3} onClick={() => onSave(getValues())}>
+                    <Button colorScheme='blue' ml={3} onClick={() => onSave(getValues("resource"))}>
                         Save
                     </Button>
                 </ModalFooter>

@@ -72,8 +72,10 @@ export const ProjectDetails = () => {
                     })
                 }
             </Box>
-            <AddResourceModal onClose={() => setIsAddResourceModalVisible(false)}
-                onSave={addResource} isOpen={isAddResourceModalVisible} resourceToUpdate={currentResource} />
+            {isAddResourceModalVisible &&
+                <AddResourceModal onClose={() => setIsAddResourceModalVisible(false)}
+                    onSave={addResource} isOpen={isAddResourceModalVisible} resourceToUpdate={currentResource} />
+            }
         </>
     )
 }
