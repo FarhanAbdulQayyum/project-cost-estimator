@@ -16,12 +16,12 @@ import { useState } from 'react';
 interface ISubProjectProps {
     subProject: ISubProject;
     isDark: boolean;
-    onAddResource: (id: number, currentResource: Partial<IProjectResource>) => void;
+    onUpdateResource: (id: number, currentResource: Partial<IProjectResource>, operation: ResourceModalMode) => void;
     onAddSubProject: (id: number) => void;
     onRename: (id: number, updatedName: string) => void;
 }
 
-export const SubProject = ({ subProject, isDark, onAddResource, onAddSubProject, onRename }: ISubProjectProps) => {
+export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProject, onRename }: ISubProjectProps) => {
     // const accordianButtonBgColor = subProject.type === 'sub_project' ? isDark ? 'gray.400' : 'gray.300' : 'green.300';
     const accordianButtonBgColor = 'gray.300';
     const accordianPanelBgColor = isDark ? 'gray.200' : 'gray.100';
@@ -55,7 +55,7 @@ export const SubProject = ({ subProject, isDark, onAddResource, onAddSubProject,
                                 </Box>
                                 <HStack>
                                     <Button size="xs" onClick={() => showRenameModal(subProject.id, subProject.name)}>Rename</Button>
-                                    <Button size="xs" onClick={() => onAddResource(subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 })}>Add Resources</Button>
+                                    <Button size="xs" onClick={() => onUpdateResource(subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 }, "ADD")}>Add Resources</Button>
                                     {subProject.type === 'sub_project' &&
                                         < Button size="xs" onClick={() => onAddSubProject(subProject.id)}>Add Sub-Project</Button>
                                     }
@@ -71,7 +71,7 @@ export const SubProject = ({ subProject, isDark, onAddResource, onAddSubProject,
                             {
                                 subProject.children.map((child: ISubProject) => {
                                     return <SubProject key={child.id} subProject={child} isDark={!isDark}
-                                        onAddResource={onAddResource} onAddSubProject={onAddSubProject} onRename={onRename} />
+                                        onUpdateResource={onUpdateResource} onAddSubProject={onAddSubProject} onRename={onRename} />
                                 })
                             }
                         </AccordionPanel>
@@ -81,7 +81,7 @@ export const SubProject = ({ subProject, isDark, onAddResource, onAddSubProject,
                             <ProjectResourceHeader />
                             {
                                 subProject.children.map((child: IProjectResource) => {
-                                    return <ProjectResource key={child.id} projectResource={child} />
+                                    return <ProjectResource subProjectId={subProject.id} onUpdateResource={onUpdateResource} key={child.id} projectResource={child} />
                                 })
                             }
                         </AccordionPanel>

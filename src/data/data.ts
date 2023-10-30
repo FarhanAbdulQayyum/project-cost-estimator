@@ -45,8 +45,17 @@ export const addResourceInState = (id: number, project: IProject, resource: Part
             unitPrice: resource.unitPrice,
             sku: resource.sku,
             quantity: resource.quantity,
-            total: resource.quantity && resource.unitPrice ? resource.unitPrice * resource.quantity : 0,
+            total: resource.total,
         })
+    }
+    return project
+
+}
+export const updateResourceInState = (id: number, project: IProject, updateResource: Partial<IProjectResource>): IProject => {
+    const node = findNodeById(project, id);
+    if (node !== null) {
+        const resouceToUpdateIndex = node.children.findIndex((child: ISubProject) => child.id === updateResource.id)
+        node.children[resouceToUpdateIndex] = updateResource
     }
     return project
 

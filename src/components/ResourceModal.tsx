@@ -7,18 +7,26 @@ interface IAddResourceModalProps {
     onClose: () => void;
     onSave: (updatedValue: Partial<IProjectResource>) => void;
     resourceToUpdate: Partial<IProjectResource>
+    mode: ResourceModalMode
 }
 
 interface IAddResourceForm {
     resource: Partial<IProjectResource>
 }
 
-export const AddResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate }: IAddResourceModalProps) => {
+export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode }: IAddResourceModalProps) => {
     const [total, setTotal] = useState(0);
 
     const { register, getValues, watch, reset, setValue } = useForm<IAddResourceForm>()
 
     const watchFields = watch(["resource.unitPrice", "resource.quantity"])
+
+    const saveClicked = () => {
+        const updatedResource = getValues("resource")
+        updatedResource.total = total
+        if (mode === "EDIT") updatedResource.id = resourceToUpdate.id
+        onSave(updatedResource)
+    }
 
     useEffect(() => {
         setValue("resource", resourceToUpdate);
@@ -34,7 +42,7 @@ export const AddResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate }: 
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Add Resource</ModalHeader>
+                <ModalHeader>{mode === 'ADD' ? 'Add Resource' : 'Update Resource'}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Text>Resource Name:</Text>
@@ -53,7 +61,7 @@ export const AddResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate }: 
                     <Button onClick={onClose}>
                         Discard
                     </Button>
-                    <Button colorScheme='blue' ml={3} onClick={() => onSave(getValues("resource"))}>
+                    <Button colorScheme='blue' ml={3} onClick={saveClicked}>
                         Save
                     </Button>
                 </ModalFooter>

@@ -39,3 +39,5 @@ interface IData {
     resources: IResource[];
     projects: IProject[];
 }
+
+type ResourceModalMode = 'ADD' | 'EDIT'

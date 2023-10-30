@@ -1,11 +1,11 @@
 import { Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
-import { addResourceInState, addSubProject, getProjectById, renameItem } from "../data/data";
+import { addResourceInState, addSubProject, getProjectById, renameItem, updateResourceInState } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
 import { mockData, } from "../data/mockData";
 import { useNavigate } from 'react-router-dom';
-import { AddResourceModal } from "../components/AddResourceModal";
+import { ResourceModal } from "../components/ResourceModal";
 
 export const ProjectDetails = () => {
     const navigate = useNavigate();
@@ -15,18 +15,31 @@ export const ProjectDetails = () => {
     const [project, setProject] = useState(initialProject);
     const [currentResource, setCurrentResource] = useState({})
     const [currentResourceContainerId, setCurrentResourceContainerId] = useState(0);
-    const [isAddResourceModalVisible, setIsAddResourceModalVisible] = useState(false);
+    const [isResourceModalVisible, setIsResourceModalVisible] = useState(false);
+    const [resourceModalMode, setResourceModalMode] = useState<ResourceModalMode>('ADD');
 
-    const onAddResource = (id: number, currentResource: Partial<IProjectResource>) => {
+    const onUpdateResource = (id: number, currentResource: Partial<IProjectResource>, operation: ResourceModalMode) => {
         setCurrentResource(currentResource);
         setCurrentResourceContainerId(id);
-        setIsAddResourceModalVisible(true);
+        setIsResourceModalVisible(true);
+        setResourceModalMode(operation);
     }
 
     const addResource = (resource: Partial<IProjectResource>) => {
         const _project = addResourceInState(currentResourceContainerId, project, resource);
         setProject({ ..._project });
-        setIsAddResourceModalVisible(false);
+        setIsResourceModalVisible(false);
+    }
+
+    const updateResource = (resource: Partial<IProjectResource>) => {
+        const _project = updateResourceInState(currentResourceContainerId, project, resource);
+        setProject({ ..._project });
+        setIsResourceModalVisible(false);
+    }
+
+    const saveResource = (resource: Partial<IProjectResource>) => {
+        if (resourceModalMode === "ADD") addResource(resource)
+        if (resourceModalMode === "EDIT") updateResource(resource)
     }
 
     const onAddSubProject = (id: number, type = "sub_project") => {
@@ -68,13 +81,13 @@ export const ProjectDetails = () => {
                 {
                     project.children.map(child => {
                         return <SubProject key={child.id} subProject={child} isDark={true}
-                            onAddResource={onAddResource} onAddSubProject={onAddSubProject} onRename={onRename} />
+                            onUpdateResource={onUpdateResource} onAddSubProject={onAddSubProject} onRename={onRename} />
                     })
                 }
             </Box>
-            {isAddResourceModalVisible &&
-                <AddResourceModal onClose={() => setIsAddResourceModalVisible(false)}
-                    onSave={addResource} isOpen={isAddResourceModalVisible} resourceToUpdate={currentResource} />
+            {isResourceModalVisible &&
+                <ResourceModal onClose={() => setIsResourceModalVisible(false)}
+                    onSave={saveResource} mode={resourceModalMode} isOpen={isResourceModalVisible} resourceToUpdate={currentResource} />
             }
         </>
     )
