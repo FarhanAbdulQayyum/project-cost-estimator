@@ -4,8 +4,10 @@ import { addResource, addSubProject, getProjectById } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
 import { mockData, } from "../data/mockData";
+import { useNavigate } from 'react-router-dom';
 
 export const ProjectDetails = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const initialProject: IProject = getProjectById(location.state.id) as IProject;
     // const initialProject: IProject = mockData.projects[0];
@@ -19,6 +21,19 @@ export const ProjectDetails = () => {
     const onAddSubProject = (id: number, type = "sub_project") => {
         const _project = addSubProject(id, project, type);
         setProject({ ..._project });
+    }
+
+    const gotoMyProjects = () => {
+        navigate('/my-projects')
+    }
+
+    if (!project) {
+        return (
+            <>
+                <Text>No Project Selected</Text>
+                <Button onClick={gotoMyProjects}>My Projects</Button>
+            </>
+        )
     }
 
     return (
