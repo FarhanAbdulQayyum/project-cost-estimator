@@ -34,18 +34,18 @@ const generateUniqueId = () => {
     return timestamp;
 }
 
-export const addResource = (id: number, project: IProject): IProject => {
+export const addResourceInState = (id: number, project: IProject, resource: Partial<IProjectResource>): IProject => {
     const node = findNodeById(project, id);
     if (node.type === "unknown") node.type = "resource_container"
     if (node !== null) {
         node.children.push({
             id: generateUniqueId(),
             type: "resource",
-            name: "",
-            unitPrice: 0,
-            sku: "",
-            quantity: 0,
-            total: 0,
+            name: resource.name,
+            unitPrice: resource.unitPrice,
+            sku: resource.sku,
+            quantity: resource.quantity,
+            total: resource.quantity && resource.unitPrice ? resource.unitPrice * resource.quantity : 0,
         })
     }
     return project

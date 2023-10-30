@@ -1,10 +1,11 @@
 import { Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
-import { addResource, addSubProject, getProjectById, renameItem } from "../data/data";
+import { addResourceInState, addSubProject, getProjectById, renameItem } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
 import { mockData, } from "../data/mockData";
 import { useNavigate } from 'react-router-dom';
+import { AddResourceModal } from "../components/AddResourceModal";
 
 export const ProjectDetails = () => {
     const navigate = useNavigate();
@@ -12,10 +13,20 @@ export const ProjectDetails = () => {
     const initialProject: IProject = getProjectById(location.state.id) as IProject;
     // const initialProject: IProject = mockData.projects[0];
     const [project, setProject] = useState(initialProject);
+    const [currentResource, setCurrentResource] = useState({})
+    const [currentResourceContainerId, setCurrentResourceContainerId] = useState(0);
+    const [isAddResourceModalVisible, setIsAddResourceModalVisible] = useState(false);
 
-    const onAddResource = (id: number) => {
-        const _project = addResource(id, project);
+    const onAddResource = (id: number, currentResource: Partial<IProjectResource>) => {
+        setCurrentResource(currentResource);
+        setCurrentResourceContainerId(id);
+        setIsAddResourceModalVisible(true);
+    }
+
+    const addResource = (resource: Partial<IProjectResource>) => {
+        const _project = addResourceInState(currentResourceContainerId, project, resource);
         setProject({ ..._project });
+        setIsAddResourceModalVisible(false);
     }
 
     const onAddSubProject = (id: number, type = "sub_project") => {
@@ -61,7 +72,8 @@ export const ProjectDetails = () => {
                     })
                 }
             </Box>
-
+            <AddResourceModal onClose={() => setIsAddResourceModalVisible(false)}
+                onSave={addResource} isOpen={isAddResourceModalVisible} resourceToUpdate={currentResource} />
         </>
     )
 }

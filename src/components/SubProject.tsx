@@ -16,7 +16,7 @@ import { useState } from 'react';
 interface ISubProjectProps {
     subProject: ISubProject;
     isDark: boolean;
-    onAddResource: (id: number) => void;
+    onAddResource: (id: number, currentResource: Partial<IProjectResource>) => void;
     onAddSubProject: (id: number) => void;
     onRename: (id: number, updatedName: string) => void;
 }
@@ -55,7 +55,7 @@ export const SubProject = ({ subProject, isDark, onAddResource, onAddSubProject,
                                 </Box>
                                 <HStack>
                                     <Button size="xs" onClick={() => showRenameModal(subProject.id, subProject.name)}>Rename</Button>
-                                    <Button size="xs" onClick={() => onAddResource(subProject.id)}>Add Resources</Button>
+                                    <Button size="xs" onClick={() => onAddResource(subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 })}>Add Resources</Button>
                                     {subProject.type === 'sub_project' &&
                                         < Button size="xs" onClick={() => onAddSubProject(subProject.id)}>Add Sub-Project</Button>
                                     }
