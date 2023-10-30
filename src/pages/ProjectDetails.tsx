@@ -23,6 +23,13 @@ export const ProjectDetails = () => {
         setProject({ ..._project });
     }
 
+    const onRename = (id: number, updatedName: string) => {
+        console.log("___________________")
+        console.log("Updated Item")
+        console.log(id, updatedName)
+        console.log("___________________")
+    }
+
     const gotoMyProjects = () => {
         navigate('/my-projects')
     }
@@ -51,7 +58,8 @@ export const ProjectDetails = () => {
 
                 {
                     project.children.map(child => {
-                        return <SubProject key={child.id} subProject={child} isDark={true} onAddResource={onAddResource} onAddSubProject={onAddSubProject} />
+                        return <SubProject key={child.id} subProject={child} isDark={true}
+                            onAddResource={onAddResource} onAddSubProject={onAddSubProject} onRename={onRename} />
                     })
                 }
             </Box>
