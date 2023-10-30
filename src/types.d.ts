@@ -29,7 +29,6 @@ interface IProject {
 }
 
 interface IResource {
-    id: 1;
     name: string;
     sku: string;
     price: number;

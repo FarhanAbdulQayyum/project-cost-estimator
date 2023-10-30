@@ -1,4 +1,4 @@
-import { Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react"
+import { Box, Button, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack } from "@chakra-ui/react"
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form"
 
@@ -45,16 +45,35 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
                 <ModalHeader>{mode === 'ADD' ? 'Add Resource' : 'Update Resource'}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Text>Resource Name:</Text>
-                    <Input {...register("resource.name")} />
-
-                    <Text>Price:</Text>
-                    <Input type="number" {...register("resource.unitPrice")} />
-                    <Text>per</Text>
-                    <Input {...register("resource.sku")} />
-                    <Text>Quantity:</Text>
-                    <Input type="number" {...register("resource.quantity")} />
-                    <Text>Total: {total}</Text>
+                    <Text>Resource Information</Text>
+                    <VStack spacing={7}>
+                        <VStack p="7px" spacing={7} border="1px solid" borderRadius="5px">
+                            <Box w="100%">
+                                <Text>Name:</Text>
+                                <Input {...register("resource.name")} />
+                            </Box>
+                            <HStack>
+                                <Box>
+                                    <Text>Price:</Text>
+                                    <Input type="number" {...register("resource.unitPrice")} />
+                                </Box>
+                                <Box>
+                                    <Text>SKU</Text>
+                                    <Input {...register("resource.sku")} />
+                                </Box>
+                            </HStack>
+                        </VStack>
+                        <Box w="100%">
+                            <Text>Quantity:</Text>
+                            <Input type="number" {...register("resource.quantity")} />
+                        </Box>
+                        <Box w="100%">
+                            <HStack spacing={1}>
+                                <Text>Total: Rs</Text>
+                                <Text fontWeight={600}>{total}</Text>
+                            </HStack>
+                        </Box>
+                    </VStack>
                 </ModalBody>
 
                 <ModalFooter justifyContent="space-between">
