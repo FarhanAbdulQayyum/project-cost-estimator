@@ -1,6 +1,6 @@
 import { Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
-import { addResource, addSubProject, getProjectById } from "../data/data";
+import { addResource, addSubProject, getProjectById, renameItem } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
 import { mockData, } from "../data/mockData";
@@ -24,10 +24,8 @@ export const ProjectDetails = () => {
     }
 
     const onRename = (id: number, updatedName: string) => {
-        console.log("___________________")
-        console.log("Updated Item")
-        console.log(id, updatedName)
-        console.log("___________________")
+        const _project = renameItem(id, project, updatedName);
+        setProject({ ..._project });
     }
 
     const gotoMyProjects = () => {

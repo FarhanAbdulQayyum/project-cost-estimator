@@ -66,3 +66,11 @@ export const addSubProject = (id: number, project: IProject, type = "sub_project
     return project
 
 }
+
+export const renameItem = (id: number, project: IProject, updatedName: string): IProject => {
+    const node = findNodeById(project, id);
+    if (node !== null) {
+        node.name = updatedName
+    }
+    return project;
+}
