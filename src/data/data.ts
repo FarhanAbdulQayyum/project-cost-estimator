@@ -36,7 +36,7 @@ const generateUniqueId = () => {
 
 export const addResourceInState = (id: number, project: IProject, resource: Partial<IProjectResource>): IProject => {
     const node = findNodeById(project, id);
-    if (node.type === "unknown") node.type = "resource_container"
+    if (node.type === "sub_project") node.type = "resource_container"
     if (node !== null) {
         node.children.push({
             id: generateUniqueId(),
@@ -67,6 +67,7 @@ const calculateTotal = (project: IProject) => {
             }, 0)
             return project.total
         } else {
+            if (!project.children) return 0
             project.total = project.children.reduce((total: number, child: ISubProject) => {
                 return total + calTotals(child)
             }, 0)
