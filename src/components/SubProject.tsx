@@ -7,10 +7,18 @@ import {
     Box,
     HStack,
     Button,
+    useEditableControls,
+    ButtonGroup,
+    IconButton,
+    Flex,
+    Editable,
+    Input,
+    EditablePreview,
+    EditableInput,
 } from '@chakra-ui/react'
+import { CloseIcon, CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { ProjectResource } from './ProjectResource'
 import { ProjectResourceHeader } from './ProjectResourceHeader'
-import { RenameModal } from './RenameModal';
 import { useState } from 'react';
 
 interface ISubProjectProps {
@@ -22,22 +30,30 @@ interface ISubProjectProps {
 }
 
 export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProject, onRename }: ISubProjectProps) => {
-    // const accordianButtonBgColor = subProject.type === 'sub_project' ? isDark ? 'gray.400' : 'gray.300' : 'green.300';
     const accordianButtonBgColor = 'gray.300';
     const accordianPanelBgColor = isDark ? 'gray.200' : 'gray.100';
     const [isRenameModalVisible, setIsRenameModalVisible] = useState(false)
     const [renameItemId, setRenameItemId] = useState(0)
     const [renameItemName, setRenameItemName] = useState('')
 
-    const showRenameModal = (id: number, name: string) => {
-        setRenameItemId(id);
-        setRenameItemName(name);
-        setIsRenameModalVisible(true);
-    }
+    const EditableControls = () => {
+        const {
+            isEditing,
+            getSubmitButtonProps,
+            getCancelButtonProps,
+            getEditButtonProps,
+        } = useEditableControls()
 
-    const itemRenamed = (updatedName: string) => {
-        onRename(renameItemId, updatedName);
-        setIsRenameModalVisible(false)
+        return isEditing ? (
+            <ButtonGroup justifyContent='center' size='sm'>
+                <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} aria-label='Save' />
+                <IconButton icon={<CloseIcon />} {...getCancelButtonProps()} aria-label='Close' />
+            </ButtonGroup>
+        ) : (
+            <Flex justifyContent='center'>
+                <IconButton size='sm' icon={<EditIcon />} {...getEditButtonProps()} aria-label='Edit' />
+            </Flex>
+        )
     }
 
     return (
@@ -51,10 +67,20 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                                     <AccordionButton><AccordionIcon /></AccordionButton>
                                 </Box>
                                 <Box as="span" flex='1' textAlign='left'>
-                                    {subProject.name}
+                                    <Editable
+                                        textAlign='center'
+                                        defaultValue={subProject.name}
+                                        isPreviewFocusable={false}
+                                        onSubmit={(value) => onRename(subProject.id, value)}
+                                    >
+                                        <HStack>
+                                            <EditablePreview />
+                                            <Input maxWidth="150px" size="xs" onChange={(e) => setRenameItemName(e.target.value)} as={EditableInput} />
+                                            <EditableControls />
+                                        </HStack>
+                                    </Editable>
                                 </Box>
                                 <HStack>
-                                    <Button size="xs" onClick={() => showRenameModal(subProject.id, subProject.name)}>Rename</Button>
                                     <Button size="xs" onClick={() => onUpdateResource(subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 }, "ADD")}>Add Resources</Button>
                                     {subProject.type === 'sub_project' &&
                                         < Button size="xs" onClick={() => onAddSubProject(subProject.id)}>Add Sub-Project</Button>
@@ -89,7 +115,6 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
 
                 </AccordionItem>
             </Accordion >
-            <RenameModal isOpen={isRenameModalVisible} onClose={() => setIsRenameModalVisible(false)} onSave={itemRenamed} title='Rename Sub-Project' oldName={renameItemName} />
         </>
     )
 }
