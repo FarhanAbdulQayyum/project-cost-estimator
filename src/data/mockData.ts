@@ -212,15 +212,25 @@ export const mockProject: IProject = {
     ],
 };
 
+export const mockResources = [
+    { name: "Cement", sku: "kg", unitPrice: 400 },
+    { name: "Bricks", sku: "brick", unitPrice: 10 },
+    { name: "Paint", sku: "Can", unitPrice: 3000 },
+    { name: "Pipes", sku: "ft", unitPrice: 200 },
+    { name: "Wires", sku: "kg", unitPrice: 400 },
+    { name: "Wood", sku: "kg", unitPrice: 400 },
+    { name: "Doors", sku: "kg", unitPrice: 400 },
+    { name: "Windows Glass", sku: "kg", unitPrice: 400 },
+    { name: "Tiles", sku: "kg", unitPrice: 400 },
+    { name: "Blups", sku: "kg", unitPrice: 400 },
+    { name: "Sockets", sku: "kg", unitPrice: 400 },
+    { name: "Labour", sku: "kg", unitPrice: 400 },
+    { name: "Skilled Labour", sku: "kg", unitPrice: 400 },
+    { name: "Steel", sku: "kg", unitPrice: 400 },
+]
+
 export const mockData = {
-    resources: [
-        {
-            id: 1,
-            name: "Fauji Cement",
-            sku: "kgs",
-            price: 1000
-        }
-    ],
+    resources: mockResources,
     projects: [
         mockProject
     ]

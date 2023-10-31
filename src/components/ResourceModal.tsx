@@ -1,7 +1,8 @@
 import { Box, Button, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack } from "@chakra-ui/react"
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form"
-import { saveResource } from "../data/data";
+import { getAllResources, saveResource } from "../data/data";
+import { AutoComplete } from "./AutoComplete";
 
 interface IAddResourceModalProps {
     isOpen: boolean;
@@ -18,7 +19,7 @@ interface IAddResourceForm {
 export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode }: IAddResourceModalProps) => {
     const [total, setTotal] = useState(0);
 
-    const { register, getValues, watch, reset, setValue } = useForm<IAddResourceForm>()
+    const { register, getValues, watch, setValue } = useForm<IAddResourceForm>()
 
     const watchFields = watch(["resource.unitPrice", "resource.quantity"])
 
@@ -45,6 +46,14 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
         setTotal(_quantity && _unitPrice ? _quantity * _unitPrice : 0);
     }, [watchFields])
 
+    const autoCompleteChanged = (inputStr: string) => setValue("resource.name", inputStr)
+
+    const autoCompleteSelected = (item: any) => {
+        setValue("resource.name", item.name);
+        setValue("resource.sku", item.sku);
+        setValue("resource.unitPrice", item.unitPrice)
+    }
+
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -57,7 +66,7 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
                         <VStack p="7px" spacing={7} border="1px solid" borderRadius="5px">
                             <Box w="100%">
                                 <Text>Name:</Text>
-                                <Input {...register("resource.name")} />
+                                <AutoComplete onChange={autoCompleteChanged} onSelect={autoCompleteSelected} list={getAllResources()} searchProperty={'name'} />
                             </Box>
                             <HStack>
                                 <Box>
