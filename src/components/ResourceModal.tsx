@@ -52,7 +52,7 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
                 <ModalHeader>{mode === 'ADD' ? 'Add Resource' : 'Update Resource'}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Text>Resource Information</Text>
+                    <Box fontSize="10px" mt="-7px" height="10px" width="100px" position="absolute" ml="20px" pl="3px" bgColor="white">Resource Information</Box>
                     <VStack spacing={7}>
                         <VStack p="7px" spacing={7} border="1px solid" borderRadius="5px">
                             <Box w="100%">
@@ -70,9 +70,11 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
                                 </Box>
                             </HStack>
                         </VStack>
-                        <Box w="100%">
-                            <Text>Quantity:</Text>
-                            <Input type="number" {...register("resource.quantity")} />
+                        <Box w="100%" justifyContent="start">
+                            <Box w="50%" alignItems="left">
+                                <Text>Quantity:</Text>
+                                <Input type="number" {...register("resource.quantity")} />
+                            </Box>
                         </Box>
                         <Box w="100%">
                             <HStack spacing={1}>
@@ -92,6 +94,6 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
                     </Button>
                 </ModalFooter>
             </ModalContent>
-        </Modal>
+        </Modal >
     )
 }
