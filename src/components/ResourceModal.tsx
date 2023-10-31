@@ -1,6 +1,7 @@
 import { Box, Button, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack } from "@chakra-ui/react"
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form"
+import { saveResource } from "../data/data";
 
 interface IAddResourceModalProps {
     isOpen: boolean;
@@ -21,8 +22,14 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
 
     const watchFields = watch(["resource.unitPrice", "resource.quantity"])
 
+    const saveResourceInData = () => {
+        const updatedResource = getValues("resource")
+        saveResource(updatedResource as IResource)
+    }
+
     const saveClicked = () => {
         const updatedResource = getValues("resource")
+        saveResourceInData()
         updatedResource.total = total
         if (mode === "EDIT") updatedResource.id = resourceToUpdate.id
         onSave(updatedResource)

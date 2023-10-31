@@ -31,7 +31,7 @@ interface IProject {
 interface IResource {
     name: string;
     sku: string;
-    price: number;
+    unitPrice: number;
 }
 
 interface IData {

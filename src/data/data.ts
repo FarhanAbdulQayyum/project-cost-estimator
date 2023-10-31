@@ -104,3 +104,15 @@ export const renameItem = (id: number, project: IProject, updatedName: string): 
     }
     return project;
 }
+
+export const saveResource = (newResource: IResource) => {
+    const resourceIndex = data.resources.findIndex(_resource => _resource.name.toLocaleLowerCase() === newResource.name.toLocaleLowerCase())
+    if (resourceIndex > -1) data.resources[resourceIndex] = newResource
+    else data.resources.push(newResource)
+}
+
+export const searchResource = (searchStr: string) => {
+    return data.resources.filter(_resource => _resource.name.toLocaleLowerCase().includes(searchStr.toLocaleLowerCase()))
+}
+
+export const getAllResources = () => data.resources
