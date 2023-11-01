@@ -56,7 +56,7 @@ export const SubProject = ({
                                         onSubmit={(value) => onRename(subProject.id, value)}
                                     >
                                         <HStack>
-                                            <EditablePreview />
+                                            <EditablePreview fontWeight="semibold" />
                                             <Input maxWidth="150px" size="xs" as={EditableInput} />
                                             <EditableControls />
                                         </HStack>

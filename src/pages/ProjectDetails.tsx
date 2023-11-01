@@ -105,7 +105,7 @@ export const ProjectDetails = () => {
                     onSubmit={(value) => onRename(project.id, value)}
                 >
                     <HStack>
-                        <EditablePreview />
+                        <EditablePreview fontWeight="bold" fontSize="lg" />
                         <Input maxWidth="150px" size="xs" as={EditableInput} />
                         <EditableControls />
                     </HStack>
