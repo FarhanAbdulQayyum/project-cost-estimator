@@ -16,7 +16,7 @@ import {
     EditablePreview,
     EditableInput,
 } from '@chakra-ui/react'
-import { CloseIcon, CheckIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { ProjectResource } from './ProjectResource'
 import { ProjectResourceHeader } from './ProjectResourceHeader'
 import { accordianDefaultIndexes } from '../constants';
@@ -63,7 +63,7 @@ export const SubProject = ({
                                     </Editable>
                                 </Box>
                                 <HStack justifyContent="start">
-                                    <IconButton size='sm' icon={<DeleteIcon />}
+                                    <IconButton size='xs' icon={<DeleteIcon />}
                                         onClick={() => onRemove(parentId, { id: subProject.id, name: subProject.name })}
                                         aria-label='Edit' />
                                     {subProject.type !== 'sub_project' &&
