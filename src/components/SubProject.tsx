@@ -19,6 +19,7 @@ import {
 import { CloseIcon, CheckIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { ProjectResource } from './ProjectResource'
 import { ProjectResourceHeader } from './ProjectResourceHeader'
+import { accordianDefaultIndexes } from '../constants';
 
 interface ISubProjectProps {
     subProject: ISubProject;
@@ -30,7 +31,9 @@ interface ISubProjectProps {
     onRemove: (parentId: number, item: IItemToRemoveItem) => void;
 }
 
-export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProject, onRename, onRemove, parentId }: ISubProjectProps) => {
+export const SubProject = ({
+    subProject, isDark, onUpdateResource, onAddSubProject,
+    onRename, onRemove, parentId }: ISubProjectProps) => {
     const accordianButtonBgColor = 'gray.300';
     const accordianPanelBgColor = isDark ? 'gray.200' : 'gray.100';
 
@@ -56,7 +59,7 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
 
     return (
         <>
-            <Accordion allowMultiple border="none" mt="3px">
+            <Accordion allowMultiple defaultIndex={accordianDefaultIndexes} border="none" mt="3px">
                 <AccordionItem border="none">
                     <h2>
                         <Box bgColor={accordianButtonBgColor}>
@@ -79,12 +82,20 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                                     </Editable>
                                 </Box>
                                 <HStack justifyContent="start">
-                                    <IconButton size='sm' icon={<DeleteIcon />} onClick={() => onRemove(parentId, { id: subProject.id, name: subProject.name })} aria-label='Edit' />
+                                    <IconButton size='sm' icon={<DeleteIcon />}
+                                        onClick={() => onRemove(parentId, { id: subProject.id, name: subProject.name })}
+                                        aria-label='Edit' />
                                     {subProject.type !== 'sub_project' &&
-                                        <Button size="xs" onClick={() => onUpdateResource(subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 }, "ADD")}>+ Resources</Button>
+                                        <Button size="xs"
+                                            onClick={() => onUpdateResource(
+                                                subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 }, "ADD"
+                                            )}
+                                        >+ Resources</Button>
                                     }
                                     {subProject.type !== 'resource_container' &&
-                                        <Button size="xs" onClick={() => onAddSubProject(subProject.id)}>+ Sub-Project</Button>
+                                        <Button size="xs" onClick={() => onAddSubProject(subProject.id)}>
+                                            + Sub-Project
+                                        </Button>
                                     }
                                 </HStack>
                                 <Box as="span" flex='1' textAlign='right'>
@@ -97,8 +108,10 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                         <AccordionPanel mb={10} pr={0} bgColor={accordianPanelBgColor}>
                             {
                                 subProject.children.map((child: ISubProject) => {
-                                    return <SubProject parentId={subProject.id} key={child.id} subProject={child} isDark={!isDark} onRemove={onRemove}
-                                        onUpdateResource={onUpdateResource} onAddSubProject={onAddSubProject} onRename={onRename} />
+                                    return <SubProject parentId={subProject.id}
+                                        key={child.id} subProject={child} isDark={!isDark} onRemove={onRemove}
+                                        onUpdateResource={onUpdateResource}
+                                        onAddSubProject={onAddSubProject} onRename={onRename} />
                                 })
                             }
                         </AccordionPanel>
@@ -108,7 +121,8 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                             <ProjectResourceHeader />
                             {
                                 subProject.children.map((child: IProjectResource) => {
-                                    return <ProjectResource onRemove={onRemove} subProjectId={subProject.id} onUpdateResource={onUpdateResource} key={child.id} projectResource={child} />
+                                    return <ProjectResource onRemove={onRemove} subProjectId={subProject.id}
+                                        onUpdateResource={onUpdateResource} key={child.id} projectResource={child} />
                                 })
                             }
                         </AccordionPanel>
