@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Editable, EditableInput, EditablePreview, HStack, Heading, Input, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
 import { addResourceInState, addSubProject, getProjectById, removeItemInState, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import { mockData, } from "../data/mockData";
 import { useNavigate } from 'react-router-dom';
 import { ResourceModal } from "../components/ResourceModal";
 import { RemoveItemModal } from "../components/RemoveItemModal";
+import { EditableControls } from "../components/EditableControls";
 
 export const ProjectDetails = () => {
     const navigate = useNavigate();
@@ -89,7 +90,18 @@ export const ProjectDetails = () => {
     return (
         <>
             <HStack>
-                <Heading fontSize="20px">{project?.name}</Heading>
+                <Editable
+                    textAlign='center'
+                    defaultValue={project.name}
+                    isPreviewFocusable={false}
+                    onSubmit={(value) => onRename(project.id, value)}
+                >
+                    <HStack>
+                        <EditablePreview />
+                        <Input maxWidth="150px" size="xs" as={EditableInput} />
+                        <EditableControls />
+                    </HStack>
+                </Editable>
                 <HStack>
                     <Button size="xs" onClick={() => onAddSubProject(project.id)}>Add Sub-Project</Button>
                 </HStack>

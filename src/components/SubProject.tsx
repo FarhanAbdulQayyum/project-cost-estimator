@@ -20,6 +20,7 @@ import { CloseIcon, CheckIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { ProjectResource } from './ProjectResource'
 import { ProjectResourceHeader } from './ProjectResourceHeader'
 import { accordianDefaultIndexes } from '../constants';
+import { EditableControls } from './EditableControls';
 
 interface ISubProjectProps {
     subProject: ISubProject;
@@ -36,26 +37,6 @@ export const SubProject = ({
     onRename, onRemove, parentId }: ISubProjectProps) => {
     const accordianButtonBgColor = 'gray.300';
     const accordianPanelBgColor = isDark ? 'gray.200' : 'gray.100';
-
-    const EditableControls = () => {
-        const {
-            isEditing,
-            getSubmitButtonProps,
-            getCancelButtonProps,
-            getEditButtonProps,
-        } = useEditableControls()
-
-        return isEditing ? (
-            <ButtonGroup justifyContent='center' size='sm'>
-                <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} aria-label='Save' />
-                <IconButton icon={<CloseIcon />} {...getCancelButtonProps()} aria-label='Close' />
-            </ButtonGroup>
-        ) : (
-            <Flex justifyContent='center'>
-                <IconButton size='sm' icon={<EditIcon />} {...getEditButtonProps()} aria-label='Edit' />
-            </Flex>
-        )
-    }
 
     return (
         <>
