@@ -6,15 +6,14 @@ interface IRemoveItemModalProps {
     onClose: () => void;
     onConfirm: () => void;
     itemName: string;
-    title: string;
 }
 
-export const RemoveItemModal = ({ isOpen, onClose, onConfirm, itemName, title }: IRemoveItemModalProps) => {
+export const RemoveItemModal = ({ isOpen, onClose, onConfirm, itemName }: IRemoveItemModalProps) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>{title}</ModalHeader>
+                <ModalHeader>{`Delete ${itemName}`}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Text>{`Are you sure you want to remove ${itemName}?`}</Text>

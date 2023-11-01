@@ -131,7 +131,7 @@ export const ProjectDetails = () => {
                     onSave={saveResource} mode={resourceModalMode} isOpen={isResourceModalVisible} resourceToUpdate={currentResource} />
             }
             <RemoveItemModal isOpen={showRemoveItemModal} onClose={() => setShowRemoveItemModal(false)}
-                onConfirm={removeItem} itemName={itemToRemove.item.name} title={`Delete ${itemToRemove.item.name}`} />
+                onConfirm={removeItem} itemName={itemToRemove.item.name} />
         </>
     )
 }

@@ -1,19 +1,34 @@
 import { Box, Button, Grid, GridItem, HStack, Heading } from "@chakra-ui/react";
-import { getAllResources } from "../data/data";
+import { data, getAllResources } from "../data/data";
 import { ResourceItem } from "../components/ResourceItem";
 import { UpdateResourceModal } from "../components/UpdateResourceModal";
 import { useState } from "react";
+import { RemoveItemModal } from "../components/RemoveItemModal";
 
 export const Resources = () => {
     const [resources, setResources] = useState<IResource[]>(getAllResources())
     const [showUpdateResourceModal, setShowUpdateResourceModal] = useState(false)
     const [resourceModalMode, setResourceModalMode] = useState<ResourceModalMode>()
     const [resourceToUpdate, setResourceToUpdate] = useState<IResource>();
+    const [showRemoveItemModal, setShowRemoveItemModal] = useState(false);
+    const [itemToRemove, setItemToRemove] = useState('');
+
 
 
     const onResourceSaved = () => {
         setResources(getAllResources());
         setShowUpdateResourceModal(false)
+    }
+
+    const onRemoveResource = (resourceName: string) => {
+        setItemToRemove(resourceName)
+        setShowRemoveItemModal(true);
+    }
+
+    const removeResource = () => {
+        data.resources = resources.filter(resource => resource.name !== itemToRemove)
+        setResources(getAllResources());
+        setShowRemoveItemModal(false);
     }
 
     const addResource = () => {
@@ -41,7 +56,7 @@ export const Resources = () => {
                         resources.map((resource, index) => (
                             <GridItem key={`${resource.name}-${index}`} w="100%" h="10">
                                 <Box onClick={() => updateResource(resource)}>
-                                    <ResourceItem resource={resource} />
+                                    <ResourceItem onRemoveResource={onRemoveResource} resource={resource} />
                                 </Box>
                             </GridItem>
                         ))
@@ -57,6 +72,9 @@ export const Resources = () => {
             <UpdateResourceModal onSave={onResourceSaved} onClose={() => setShowUpdateResourceModal(false)}
                 isOpen={showUpdateResourceModal} mode={resourceModalMode as ResourceModalMode}
                 resourceToUpdate={resourceToUpdate as IResource} />
+
+            <RemoveItemModal isOpen={showRemoveItemModal} onClose={() => setShowRemoveItemModal(false)}
+                onConfirm={removeResource} itemName={itemToRemove} />
         </>
     )
 }
