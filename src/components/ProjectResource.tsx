@@ -12,7 +12,7 @@ export const ProjectResource = ({ projectResource, onUpdateResource, subProjectI
     return (
         <SimpleGrid spacing={20} columns={5} width="60%">
             <Text>{projectResource.name}</Text>
-            <HStack>
+            <HStack mt="-8px">
                 <Text>{projectResource.unitPrice}</Text>
                 <Text mt="3px" fontSize="12px" color="gray.500">{`Rs/${projectResource.sku}`}</Text>
             </HStack>
