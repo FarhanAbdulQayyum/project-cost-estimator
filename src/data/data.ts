@@ -1,6 +1,6 @@
 import { mockResources } from "./mockData";
 
-export let data: IData = { resources: mockResources, projects: [] };
+export let data: IData = { resources: [], projects: [] };
 
 export const getNewId = () => {
     if (!data.projects.length) return 1

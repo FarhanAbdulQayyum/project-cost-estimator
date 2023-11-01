@@ -9,7 +9,6 @@ export const Resources = () => {
     const [showUpdateResourceModal, setShowUpdateResourceModal] = useState(false)
     const [resourceModalMode, setResourceModalMode] = useState<ResourceModalMode>()
     const [resourceToUpdate, setResourceToUpdate] = useState<IResource>();
-    const createResource = () => console.log('Resource Created')
 
 
     const onResourceSaved = () => {
@@ -53,7 +52,6 @@ export const Resources = () => {
                 resources.length == 0 &&
                 <Box position="absolute" top="40%" right="30%" color="gray.600">
                     <Heading> No Resources Found</Heading>
-                    <Button onClick={createResource} colorScheme="blue">Create Resource</Button>
                 </Box>
             }
             <UpdateResourceModal onSave={onResourceSaved} onClose={() => setShowUpdateResourceModal(false)}
