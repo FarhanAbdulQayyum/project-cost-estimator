@@ -30,7 +30,7 @@ export const ResourceItem = ({ resource: { name, sku, unitPrice }, onRemoveResou
                     <Text>{name}</Text>
                     <Text mt="3px" fontSize="12px" color="gray.500">{`${unitPrice}  Rs/${sku}`}</Text>
                 </HStack>
-                <IconButton size="xs" onClick={onDelete} icon={<DeleteIcon />} aria-label='Delete' />
+                <IconButton size="xs" mr="5px" onClick={onDelete} icon={<DeleteIcon />} aria-label='Delete' />
             </HStack>
         </Box>
     )

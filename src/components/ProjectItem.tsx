@@ -1,6 +1,7 @@
-import { Box, HStack, Image, Text } from "@chakra-ui/react"
+import { Box, HStack, IconButton, Image, Text } from "@chakra-ui/react"
 import projectImageIcon from "../assets/project-icon.png"
 import { useNavigate } from 'react-router-dom';
+import { DeleteIcon } from "@chakra-ui/icons";
 
 const ProjectItemStyles = {
     py: "5px",
@@ -14,21 +15,27 @@ const ProjectItemStyles = {
     }
 }
 
-export const ProjectItem = ({ name, id }: { name: string, id: number }) => {
+export const ProjectItem = ({ name, id, onRemove }: { name: string, id: number, onRemove: (project: { id: number, name: string }) => void }) => {
     const navigate = useNavigate();
 
     const onProjectClick = (id: number) => {
         navigate('/project-details', { state: { id } })
     }
 
+    const onDelete = (e: any) => {
+        e.stopPropagation();
+        onRemove({ id, name });
+    }
+
     return (
-        <Box sx={ProjectItemStyles} onClick={() => onProjectClick(id)}>
+        <HStack justifyContent="space-between" sx={ProjectItemStyles} onClick={() => onProjectClick(id)}>
             <HStack spacing="0px">
                 <Box height="40px" width="40px">
                     <Image src={projectImageIcon} />
                 </Box>
                 <Text>{name}</Text>
             </HStack>
-        </Box>
+            <IconButton size="xs" mr="5px" onClick={onDelete} icon={<DeleteIcon />} aria-label='Delete' />
+        </HStack>
     )
 }
