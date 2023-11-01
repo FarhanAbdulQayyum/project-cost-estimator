@@ -16,25 +16,23 @@ import {
     EditablePreview,
     EditableInput,
 } from '@chakra-ui/react'
-import { CloseIcon, CheckIcon, EditIcon } from "@chakra-ui/icons";
+import { CloseIcon, CheckIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { ProjectResource } from './ProjectResource'
 import { ProjectResourceHeader } from './ProjectResourceHeader'
-import { useState } from 'react';
 
 interface ISubProjectProps {
     subProject: ISubProject;
     isDark: boolean;
+    parentId: number;
     onUpdateResource: (id: number, currentResource: Partial<IProjectResource>, operation: ResourceModalMode) => void;
     onAddSubProject: (id: number) => void;
     onRename: (id: number, updatedName: string) => void;
+    onRemove: (parentId: number, item: IItemToRemoveItem) => void;
 }
 
-export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProject, onRename }: ISubProjectProps) => {
+export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProject, onRename, onRemove, parentId }: ISubProjectProps) => {
     const accordianButtonBgColor = 'gray.300';
     const accordianPanelBgColor = isDark ? 'gray.200' : 'gray.100';
-    const [isRenameModalVisible, setIsRenameModalVisible] = useState(false)
-    const [renameItemId, setRenameItemId] = useState(0)
-    const [renameItemName, setRenameItemName] = useState('')
 
     const EditableControls = () => {
         const {
@@ -75,12 +73,13 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                                     >
                                         <HStack>
                                             <EditablePreview />
-                                            <Input maxWidth="150px" size="xs" onChange={(e) => setRenameItemName(e.target.value)} as={EditableInput} />
+                                            <Input maxWidth="150px" size="xs" as={EditableInput} />
                                             <EditableControls />
                                         </HStack>
                                     </Editable>
                                 </Box>
-                                <HStack>
+                                <HStack justifyContent="start">
+                                    <IconButton size='sm' icon={<DeleteIcon />} onClick={() => onRemove(parentId, { id: subProject.id, name: subProject.name })} aria-label='Edit' />
                                     <Button size="xs" onClick={() => onUpdateResource(subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 }, "ADD")}>Add Resources</Button>
                                     {subProject.type === 'sub_project' &&
                                         < Button size="xs" onClick={() => onAddSubProject(subProject.id)}>Add Sub-Project</Button>
@@ -96,7 +95,7 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                         <AccordionPanel mb={10} pr={0} bgColor={accordianPanelBgColor}>
                             {
                                 subProject.children.map((child: ISubProject) => {
-                                    return <SubProject key={child.id} subProject={child} isDark={!isDark}
+                                    return <SubProject parentId={subProject.id} key={child.id} subProject={child} isDark={!isDark} onRemove={onRemove}
                                         onUpdateResource={onUpdateResource} onAddSubProject={onAddSubProject} onRename={onRename} />
                                 })
                             }
@@ -107,7 +106,7 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                             <ProjectResourceHeader />
                             {
                                 subProject.children.map((child: IProjectResource) => {
-                                    return <ProjectResource subProjectId={subProject.id} onUpdateResource={onUpdateResource} key={child.id} projectResource={child} />
+                                    return <ProjectResource onRemove={onRemove} subProjectId={subProject.id} onUpdateResource={onUpdateResource} key={child.id} projectResource={child} />
                                 })
                             }
                         </AccordionPanel>

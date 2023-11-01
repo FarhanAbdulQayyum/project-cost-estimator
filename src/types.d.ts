@@ -40,3 +40,13 @@ interface IData {
 }
 
 type ResourceModalMode = 'ADD' | 'EDIT'
+
+interface IItemToRemoveItem {
+    id: number;
+    name: string
+}
+
+interface IItemToRemove {
+    parentId: number,
+    item: IItemToRemoveItem
+}

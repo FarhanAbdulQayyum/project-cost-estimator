@@ -118,3 +118,11 @@ export const searchResource = (searchStr: string) => {
 }
 
 export const getAllResources = () => data.resources
+
+export const removeItemInState = (parentId: number, subProjectId: number, project: IProject) => {
+    const node = findNodeById(project, parentId)
+    if (node !== null) {
+        node.children = node.children.filter((child: (ISubProject | IProjectResource)) => child.id !== subProjectId)
+    }
+    return project
+}

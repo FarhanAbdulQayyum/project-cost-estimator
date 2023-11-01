@@ -1,11 +1,12 @@
 import { Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
-import { addResourceInState, addSubProject, getProjectById, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
+import { addResourceInState, addSubProject, getProjectById, removeItemInState, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
 import { mockData, } from "../data/mockData";
 import { useNavigate } from 'react-router-dom';
 import { ResourceModal } from "../components/ResourceModal";
+import { RemoveItemModal } from "../components/RemoveItemModal";
 
 export const ProjectDetails = () => {
     const navigate = useNavigate();
@@ -17,6 +18,9 @@ export const ProjectDetails = () => {
     const [currentResourceContainerId, setCurrentResourceContainerId] = useState(0);
     const [isResourceModalVisible, setIsResourceModalVisible] = useState(false);
     const [resourceModalMode, setResourceModalMode] = useState<ResourceModalMode>('ADD');
+    const [showRemoveItemModal, setShowRemoveItemModal] = useState(false);
+    const [itemToRemove, setItemToRemove] = useState<IItemToRemove>({ parentId: -1, item: { id: -1, name: '' } });
+
 
     const onUpdateResource = (id: number, currentResource: Partial<IProjectResource>, operation: ResourceModalMode) => {
         setCurrentResource(currentResource);
@@ -35,6 +39,18 @@ export const ProjectDetails = () => {
         const _project = updateResourceInState(currentResourceContainerId, project, resource);
         updateTotals(_project)
         setIsResourceModalVisible(false);
+    }
+
+    const onRemoveItem = (parentId: number, item: IItemToRemoveItem) => {
+        setShowRemoveItemModal(true);
+        setItemToRemove({ parentId, item: { id: item.id, name: item.name } })
+
+    }
+
+    const removeItem = () => {
+        const _project = removeItemInState(itemToRemove.parentId, itemToRemove.item.id, project);
+        updateTotals(_project);
+        setShowRemoveItemModal(false)
     }
 
     const updateTotals = (project: IProject) => {
@@ -85,8 +101,9 @@ export const ProjectDetails = () => {
 
                 {
                     project.children.map(child => {
-                        return <SubProject key={child.id} subProject={child} isDark={true}
-                            onUpdateResource={onUpdateResource} onAddSubProject={onAddSubProject} onRename={onRename} />
+                        return <SubProject key={child.id} subProject={child} isDark={true} parentId={project.id}
+                            onRemove={onRemoveItem} onUpdateResource={onUpdateResource}
+                            onAddSubProject={onAddSubProject} onRename={onRename} />
                     })
                 }
             </Box>
@@ -94,6 +111,8 @@ export const ProjectDetails = () => {
                 <ResourceModal onClose={() => setIsResourceModalVisible(false)}
                     onSave={saveResource} mode={resourceModalMode} isOpen={isResourceModalVisible} resourceToUpdate={currentResource} />
             }
+            <RemoveItemModal isOpen={showRemoveItemModal} onClose={() => setShowRemoveItemModal(false)}
+                onConfirm={removeItem} itemName={itemToRemove.item.name} />
         </>
     )
 }
