@@ -63,7 +63,7 @@ export const ProjectDetails = () => {
         if (resourceModalMode === "EDIT") updateResource(resource)
     }
 
-    const onAddSubProject = (id: number, type = "sub_project") => {
+    const onAddSubProject = (id: number, type = "unknown") => {
         const _project = addSubProject(id, project, type);
         setProject({ ..._project });
     }
@@ -91,7 +91,6 @@ export const ProjectDetails = () => {
             <HStack>
                 <Heading fontSize="20px">{project?.name}</Heading>
                 <HStack>
-                    <Button size="xs" onClick={() => onAddSubProject(project.id, "resource_container")}>Add Resources</Button>
                     <Button size="xs" onClick={() => onAddSubProject(project.id)}>Add Sub-Project</Button>
                 </HStack>
                 <Text textAlign="right">{project.total}</Text>

@@ -38,7 +38,7 @@ const generateUniqueId = () => {
 
 export const addResourceInState = (id: number, project: IProject, resource: Partial<IProjectResource>): IProject => {
     const node = findNodeById(project, id);
-    if (node.type === "sub_project") node.type = "resource_container"
+    if (node.type === "unknown") node.type = "resource_container"
     if (node !== null) {
         node.children.push({
             id: generateUniqueId(),
@@ -84,8 +84,9 @@ export const updateTotalsInProject = (project: IProject) => {
     return calculateTotal(project)
 }
 
-export const addSubProject = (id: number, project: IProject, type = "sub_project"): IProject => {
+export const addSubProject = (id: number, project: IProject, type = "unknown"): IProject => {
     const node = findNodeById(project, id);
+    if (node.type === "unknown") node.type = "sub_project"
     if (node !== null) {
         node.children.push({
             id: generateUniqueId(),

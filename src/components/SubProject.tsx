@@ -64,7 +64,7 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                                 <Box width="30px">
                                     <AccordionButton><AccordionIcon /></AccordionButton>
                                 </Box>
-                                <Box as="span" flex='1' textAlign='left'>
+                                <Box as="span" textAlign='left'>
                                     <Editable
                                         textAlign='center'
                                         defaultValue={subProject.name}
@@ -80,9 +80,11 @@ export const SubProject = ({ subProject, isDark, onUpdateResource, onAddSubProje
                                 </Box>
                                 <HStack justifyContent="start">
                                     <IconButton size='sm' icon={<DeleteIcon />} onClick={() => onRemove(parentId, { id: subProject.id, name: subProject.name })} aria-label='Edit' />
-                                    <Button size="xs" onClick={() => onUpdateResource(subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 }, "ADD")}>Add Resources</Button>
-                                    {subProject.type === 'sub_project' &&
-                                        < Button size="xs" onClick={() => onAddSubProject(subProject.id)}>Add Sub-Project</Button>
+                                    {subProject.type !== 'sub_project' &&
+                                        <Button size="xs" onClick={() => onUpdateResource(subProject.id, { name: '', quantity: 0, sku: '', unitPrice: 0 }, "ADD")}>+ Resources</Button>
+                                    }
+                                    {subProject.type !== 'resource_container' &&
+                                        <Button size="xs" onClick={() => onAddSubProject(subProject.id)}>+ Sub-Project</Button>
                                     }
                                 </HStack>
                                 <Box as="span" flex='1' textAlign='right'>
