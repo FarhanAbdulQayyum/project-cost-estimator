@@ -7,13 +7,13 @@ const sideBarItemStyle = {
     py: "10px",
     cursor: "pointer",
     ":hover": {
-        bgColor: "gray.600"
+        bgColor: "gray.400"
     }
 }
 
 const selectedItemStyle = {
     ...sideBarItemStyle,
-    bgColor: "gray.600"
+    bgColor: "gray.400"
 }
 
 const sideBarItemTextStyle = {

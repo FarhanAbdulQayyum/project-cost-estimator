@@ -9,7 +9,7 @@ const ResourceItemStyles = {
     w: "100%",
     cursor: "pointer",
     ':hover': {
-        bgColor: "gray.500"
+        bgColor: "gray.300"
     }
 }
 
