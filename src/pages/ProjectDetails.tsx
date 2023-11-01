@@ -114,7 +114,7 @@ export const ProjectDetails = () => {
                 <HStack>
                     <Button size="xs" onClick={() => onAddSubProject(project.id)}>Add Sub-Project</Button>
                 </HStack>
-                <Box mr="10px" fontWeight="bold" as="span" flex='1' textAlign='right'>
+                <Box mr="20px" fontWeight="bold" as="span" flex='1' textAlign='right'>
                     {`Total: ${project.total}`}
                 </Box>
             </HStack>

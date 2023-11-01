@@ -40,10 +40,10 @@ export const SubProject = ({
 
     return (
         <>
-            <Accordion allowMultiple defaultIndex={accordianDefaultIndexes} border="none" mt="3px">
+            <Accordion allowMultiple defaultIndex={accordianDefaultIndexes} border="none" mt="3px" mr="10px">
                 <AccordionItem border="none">
                     <h2>
-                        <Box bgColor={accordianButtonBgColor}>
+                        <Box borderRadius="5px 5px 0px 0px" bgColor={accordianButtonBgColor}>
                             <HStack>
                                 <Box width="30px">
                                     <AccordionButton><AccordionIcon /></AccordionButton>
@@ -86,7 +86,7 @@ export const SubProject = ({
                         </Box>
                     </h2>
                     {subProject.type === 'sub_project' &&
-                        <AccordionPanel mb={10} pr={0} bgColor={accordianPanelBgColor}>
+                        <AccordionPanel borderRadius="0px 0px 5px 5px" mb={10} pr={0} bgColor={accordianPanelBgColor}>
                             {
                                 subProject.children.map((child: ISubProject) => {
                                     return <SubProject parentId={subProject.id}
@@ -98,7 +98,7 @@ export const SubProject = ({
                         </AccordionPanel>
                     }
                     {subProject.type === 'resource_container' &&
-                        <AccordionPanel border="none" mb={10} pr={0} bgColor={accordianPanelBgColor}>
+                        <AccordionPanel borderRadius="0px 0px 5px 5px" border="none" mb={10} pr={0} bgColor={accordianPanelBgColor}>
                             <ProjectResourceHeader />
                             {
                                 subProject.children.map((child: IProjectResource) => {
