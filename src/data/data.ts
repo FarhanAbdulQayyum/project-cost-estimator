@@ -31,7 +31,7 @@ const findNodeById = (data: any, id: number): ISubProject => {
     return result;
 }
 
-const generateUniqueId = () => {
+export const generateUniqueId = () => {
     const timestamp = new Date().getTime();
     return timestamp;
 }

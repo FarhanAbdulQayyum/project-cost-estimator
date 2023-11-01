@@ -1,5 +1,5 @@
 import { Box, Button, Grid, GridItem, HStack, Heading, Text } from "@chakra-ui/react";
-import { data, getNewId } from "../data/data";
+import { data, generateUniqueId, getNewId } from "../data/data";
 import { useNavigate } from 'react-router-dom';
 import { ProjectItem } from "../components/ProjectItem";
 import { useState } from "react";
@@ -16,7 +16,16 @@ export const MyProjects = () => {
 
     const createProject = () => {
         const newId = getNewId();
-        data.projects.push({ id: newId, name: `New Project ${newId}`, total: 0, children: [] })
+        data.projects.push({
+            id: newId, name: `New Project ${newId}`, total: 0,
+            children: [{
+                id: generateUniqueId(),
+                type: "unknown",
+                name: "New SubProject",
+                total: 0,
+                children: []
+            }]
+        })
         navigate('/project-details', { state: { id: newId } })
     }
 
