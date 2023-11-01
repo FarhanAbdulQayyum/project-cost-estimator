@@ -31,9 +31,9 @@ export const Resources = () => {
 
     return (
         <>
-            <HStack>
-                <Heading>Resources</Heading>
-                <Button colorScheme="blue" onClick={addResource}> Add Resource</Button>
+            <HStack justifyContent="space-between" mb="20px">
+                <Heading fontSize="lg" fontWeight="bold">Resources</Heading>
+                <Button size="sm" colorScheme="blue" onClick={addResource}> Add Resource</Button>
             </HStack>
             {
                 resources.length &&
