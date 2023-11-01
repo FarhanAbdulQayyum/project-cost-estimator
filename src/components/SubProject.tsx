@@ -79,7 +79,7 @@ export const SubProject = ({
                                         </Button>
                                     }
                                 </HStack>
-                                <Box as="span" flex='1' textAlign='right'>
+                                <Box mr="10px" as="span" flex='1' textAlign='right'>
                                     {`Total: ${subProject.total}`}
                                 </Box>
                             </HStack>

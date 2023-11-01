@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { ResourceModal } from "../components/ResourceModal";
 import { RemoveItemModal } from "../components/RemoveItemModal";
 import { EditableControls } from "../components/EditableControls";
+import { scrollStyle } from "../globalStyles";
 
 export const ProjectDetails = () => {
     const navigate = useNavigate();
@@ -113,10 +114,12 @@ export const ProjectDetails = () => {
                 <HStack>
                     <Button size="xs" onClick={() => onAddSubProject(project.id)}>Add Sub-Project</Button>
                 </HStack>
-                <Text textAlign="right">{project.total}</Text>
+                <Box mr="10px" fontWeight="bold" as="span" flex='1' textAlign='right'>
+                    {`Total: ${project.total}`}
+                </Box>
             </HStack>
 
-            <Box height="80vh" overflowY="scroll" overflowX="hidden">
+            <Box height="80vh" overflowY="scroll" sx={scrollStyle} overflowX="hidden">
 
                 {
                     project.children.map(child => {
