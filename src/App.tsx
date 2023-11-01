@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import { Header } from "./components/Header";
 import { SideBar } from "./components/SideBar";
 import { Outlet } from "react-router-dom";
