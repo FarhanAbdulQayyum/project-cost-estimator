@@ -1,6 +1,6 @@
-import { Box, Button, Editable, EditableInput, EditablePreview, HStack, Heading, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Editable, EditableInput, EditablePreview, HStack, Input, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
-import { addResourceInState, addSubProject, getProjectById, removeItemInState, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
+import { addResourceInState, addSubProject, data, getProjectById, removeItemInState, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
 import { mockData, } from "../data/mockData";
@@ -57,6 +57,7 @@ export const ProjectDetails = () => {
     const updateTotals = (project: IProject) => {
         const projectWithUpdatedTotals = updateTotalsInProject(project)
         setProject({ ...projectWithUpdatedTotals })
+        updateProjectInState();
     }
 
     const saveResource = (resource: Partial<IProjectResource>) => {
@@ -67,11 +68,18 @@ export const ProjectDetails = () => {
     const onAddSubProject = (id: number, type = "unknown") => {
         const _project = addSubProject(id, project, type);
         setProject({ ..._project });
+        updateProjectInState();
     }
 
     const onRename = (id: number, updatedName: string) => {
         const _project = renameItem(id, project, updatedName);
         setProject({ ..._project });
+        updateProjectInState();
+    }
+
+    const updateProjectInState = () => {
+        const projectIndex = data.projects.findIndex(project => project.id === location.state.id)
+        data.projects[projectIndex] = project;
     }
 
     const gotoMyProjects = () => {

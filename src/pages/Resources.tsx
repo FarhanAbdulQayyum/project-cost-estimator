@@ -36,7 +36,7 @@ export const Resources = () => {
                 <Button size="sm" colorScheme="blue" onClick={addResource}> Add Resource</Button>
             </HStack>
             {
-                resources.length &&
+                resources.length > 0 &&
                 <Grid templateColumns='repeat(5, 1fr)' gap={6} width="100%" >
                     {
                         resources.map((resource, index) => (
@@ -50,7 +50,7 @@ export const Resources = () => {
                 </Grid >
             }
             {
-                !resources.length &&
+                resources.length == 0 &&
                 <Box position="absolute" top="40%" right="30%" color="gray.600">
                     <Heading> No Resources Found</Heading>
                     <Button onClick={createResource} colorScheme="blue">Create Resource</Button>
