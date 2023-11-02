@@ -66,7 +66,7 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
                         <VStack p="7px" spacing={7} border="1px solid" borderRadius="5px">
                             <Box w="100%">
                                 <Text>Name:</Text>
-                                <AutoComplete onChange={autoCompleteChanged} onSelect={autoCompleteSelected} list={getAllResources()} searchProperty={'name'} />
+                                <AutoComplete<IResource> onChange={autoCompleteChanged} onSelect={autoCompleteSelected} list={getAllResources()} searchProperty={'name'} />
                             </Box>
                             <HStack>
                                 <Box>
