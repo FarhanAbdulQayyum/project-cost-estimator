@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { addResourceInState, addSubProject, data, getProjectById, getResourceSummary, removeItemInState, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
-import { mockData, } from "../data/mockData";
 import { useNavigate } from 'react-router-dom';
 import { ResourceModal } from "../components/ResourceModal";
 import { RemoveItemModal } from "../components/RemoveItemModal";

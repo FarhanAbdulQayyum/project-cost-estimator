@@ -1,6 +1,5 @@
-import { Box, Button, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SimpleGrid, Text, VStack } from "@chakra-ui/react"
-import { ResourceItem } from "./ResourceItem";
-import { ProjectResource } from "./ProjectResource";
+import { Box, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, SimpleGrid, Text } from "@chakra-ui/react"
+
 
 
 interface IResourceSummaryProps {

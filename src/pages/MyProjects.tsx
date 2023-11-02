@@ -1,5 +1,5 @@
-import { Box, Button, Grid, GridItem, HStack, Heading, Text, VStack } from "@chakra-ui/react";
-import { data, generateUniqueId, getNewId } from "../data/data";
+import { Button, Grid, GridItem, HStack, Heading, VStack } from "@chakra-ui/react";
+import { data, getNewId } from "../data/data";
 import { useNavigate } from 'react-router-dom';
 import { ProjectItem } from "../components/ProjectItem";
 import { useState } from "react";
