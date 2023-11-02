@@ -10,7 +10,7 @@ interface IProjectResourceProps {
 
 export const ProjectResource = ({ projectResource, onUpdateResource, subProjectId, onRemove }: IProjectResourceProps) => {
     return (
-        <SimpleGrid spacing={20} columns={5} width="60%">
+        <SimpleGrid spacing={5} columns={5} width="95%">
             <Text>{projectResource.name}</Text>
             <HStack mt="-8px">
                 <Text>{projectResource.unitPrice}</Text>
