@@ -31,6 +31,36 @@ const findNodeById = (data: any, id: number): ISubProject => {
     return result;
 }
 
+const getAllRerourcesFromProject = (project: IProject) => {
+    const resources: IProjectResource[] = []
+
+    const search = (node: { children: any[], type?: string }) => {
+        if (node.type && node.type === 'resource_container') {
+            resources.push(...node.children)
+        }
+        if (node.children) {
+            node.children.forEach(search);
+        }
+    }
+
+    search(project);
+
+    return resources;
+}
+
+export const getResourceSummary = (project: IProject) => {
+    const resources = getAllRerourcesFromProject(project);
+    const resourceSummary: IProjectResource[] = []
+    resources.forEach(resource => {
+        const resourceSummaryIndex = resourceSummary.findIndex(rSummary => rSummary.name === resource.name)
+        if (resourceSummaryIndex > -1) {
+            resourceSummary[resourceSummaryIndex].quantity = resourceSummary[resourceSummaryIndex].quantity + resource.quantity
+            resourceSummary[resourceSummaryIndex].total = resourceSummary[resourceSummaryIndex].total + resource.total
+        } else resourceSummary.push({ ...resource })
+    })
+    return resourceSummary
+}
+
 export const generateUniqueId = () => {
     const timestamp = new Date().getTime();
     return timestamp;

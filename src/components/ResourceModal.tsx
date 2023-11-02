@@ -71,7 +71,7 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
                             <HStack>
                                 <Box>
                                     <Text>Price:</Text>
-                                    <Input type="number" {...register("resource.unitPrice")} />
+                                    <Input type="number" {...register("resource.unitPrice", { valueAsNumber: true })} />
                                 </Box>
                                 <Box>
                                     <Text>SKU</Text>
@@ -82,7 +82,7 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
                         <Box w="100%" justifyContent="start">
                             <Box w="50%" alignItems="left">
                                 <Text>Quantity:</Text>
-                                <Input type="number" {...register("resource.quantity")} />
+                                <Input type="number" {...register("resource.quantity", { valueAsNumber: true })} />
                             </Box>
                         </Box>
                         <Box w="100%">

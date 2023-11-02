@@ -1,6 +1,6 @@
 import { Box, Button, Editable, EditableInput, EditablePreview, HStack, Input, Text } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
-import { addResourceInState, addSubProject, data, getProjectById, removeItemInState, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
+import { addResourceInState, addSubProject, data, getProjectById, getResourceSummary, removeItemInState, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
 import { useState } from "react";
 import { SubProject } from "../components/SubProject";
 import { mockData, } from "../data/mockData";
@@ -9,6 +9,7 @@ import { ResourceModal } from "../components/ResourceModal";
 import { RemoveItemModal } from "../components/RemoveItemModal";
 import { EditableControls } from "../components/EditableControls";
 import { scrollStyle } from "../globalStyles";
+import { ResourceSummaryModal } from "../components/ResourceSummaryModal";
 
 export const ProjectDetails = () => {
     const navigate = useNavigate();
@@ -22,6 +23,8 @@ export const ProjectDetails = () => {
     const [resourceModalMode, setResourceModalMode] = useState<ResourceModalMode>('ADD');
     const [showRemoveItemModal, setShowRemoveItemModal] = useState(false);
     const [itemToRemove, setItemToRemove] = useState<IItemToRemove>({ parentId: -1, item: { id: -1, name: '' } });
+    const [isSummaryModalVisible, setIsSummaryModalVisible] = useState(false);
+    const [resourceSummary, setResourceSummary] = useState<any[]>([]);
 
 
     const onUpdateResource = (id: number, currentResource: Partial<IProjectResource>, operation: ResourceModalMode) => {
@@ -87,6 +90,12 @@ export const ProjectDetails = () => {
         navigate('/my-projects')
     }
 
+    const showResourceSummaryModal = (project: IProject) => {
+        const resourceSummary = getResourceSummary(project)
+        setResourceSummary(resourceSummary)
+        setIsSummaryModalVisible(true);
+    }
+
     if (!project) {
         return (
             <>
@@ -98,25 +107,28 @@ export const ProjectDetails = () => {
 
     return (
         <>
-            <HStack>
-                <Editable
-                    textAlign='center'
-                    defaultValue={project.name}
-                    isPreviewFocusable={false}
-                    onSubmit={(value) => onRename(project.id, value)}
-                >
-                    <HStack>
-                        <EditablePreview fontWeight="bold" fontSize="lg" />
-                        <Input maxWidth="150px" size="xs" as={EditableInput} />
-                        <EditableControls />
-                    </HStack>
-                </Editable>
+            <HStack justifyContent="space-between" w="100%">
                 <HStack>
-                    <Button size="xs" onClick={() => onAddSubProject(project.id)}>Add Sub-Project</Button>
+                    <Editable
+                        textAlign='center'
+                        defaultValue={project.name}
+                        isPreviewFocusable={false}
+                        onSubmit={(value) => onRename(project.id, value)}
+                    >
+                        <HStack>
+                            <EditablePreview fontWeight="bold" fontSize="lg" />
+                            <Input maxWidth="150px" size="xs" as={EditableInput} />
+                            <EditableControls />
+                        </HStack>
+                    </Editable>
+                    <HStack>
+                        <Button size="xs" onClick={() => onAddSubProject(project.id)}>Add Sub-Project</Button>
+                    </HStack>
                 </HStack>
-                <Box mr="20px" fontWeight="bold" as="span" flex='1' textAlign='right'>
-                    {`Total: ${project.total}`}
-                </Box>
+                <HStack mr="20px" fontWeight="bold" as="span" justifyContent="end" textAlign='right'>
+                    <Button size="xs" onClick={() => showResourceSummaryModal(project)}>View Resource Summary</Button>
+                    <Text>{`Total: ${project.total}`}</Text>
+                </HStack>
             </HStack>
 
             <Box height="80vh" overflowY="scroll" sx={scrollStyle} overflowX="hidden">
@@ -135,6 +147,7 @@ export const ProjectDetails = () => {
             }
             <RemoveItemModal isOpen={showRemoveItemModal} onClose={() => setShowRemoveItemModal(false)}
                 onConfirm={removeItem} itemName={itemToRemove.item.name} />
+            <ResourceSummaryModal isOpen={isSummaryModalVisible} onClose={() => setIsSummaryModalVisible(false)} resourceSummary={resourceSummary} />
         </>
     )
 }
