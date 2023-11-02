@@ -1,4 +1,4 @@
-import { Box, Button, Grid, GridItem, HStack, Heading } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, HStack, Heading, VStack } from "@chakra-ui/react";
 import { data, getAllResources } from "../data/data";
 import { ResourceItem } from "../components/ResourceItem";
 import { UpdateResourceModal } from "../components/UpdateResourceModal";
@@ -45,29 +45,33 @@ export const Resources = () => {
 
     return (
         <>
-            <HStack justifyContent="space-between" mb="20px">
-                <Heading fontSize="lg" fontWeight="bold">Resources</Heading>
-                <Button size="sm" colorScheme="blue" onClick={addResource}> Add Resource</Button>
-            </HStack>
             {
                 resources.length > 0 &&
-                <Grid templateColumns='repeat(5, 1fr)' gap={6} width="100%" >
-                    {
-                        resources.map((resource, index) => (
-                            <GridItem key={`${resource.name}-${index}`} w="100%" h="10">
-                                <Box onClick={() => updateResource(resource)}>
-                                    <ResourceItem onRemoveResource={onRemoveResource} resource={resource} />
-                                </Box>
-                            </GridItem>
-                        ))
-                    }
-                </Grid >
+                <>
+                    <HStack justifyContent="space-between" mb="20px">
+                        <Heading fontSize="lg" fontWeight="bold">Resources</Heading>
+                        <Button size="sm" colorScheme="blue" onClick={addResource}> Add Resource</Button>
+                    </HStack>
+
+                    <Grid templateColumns='repeat(5, 1fr)' gap={6} width="100%" >
+                        {
+                            resources.map((resource, index) => (
+                                <GridItem key={`${resource.name}-${index}`} w="100%" h="10">
+                                    <Box onClick={() => updateResource(resource)}>
+                                        <ResourceItem onRemoveResource={onRemoveResource} resource={resource} />
+                                    </Box>
+                                </GridItem>
+                            ))
+                        }
+                    </Grid >
+                </>
             }
             {
                 resources.length == 0 &&
-                <Box position="absolute" top="40%" right="30%" color="gray.600">
-                    <Heading> No Resources Found</Heading>
-                </Box>
+                <VStack position="absolute" top="40%" right="30%" color="gray.600">
+                    <Heading fontWeight="semibold" fontSize="27px"> No Resources Found</Heading>
+                    <Button size="sm" colorScheme="blue" onClick={addResource}> Add Resource</Button>
+                </VStack>
             }
             <UpdateResourceModal onSave={onResourceSaved} onClose={() => setShowUpdateResourceModal(false)}
                 isOpen={showUpdateResourceModal} mode={resourceModalMode as ResourceModalMode}
