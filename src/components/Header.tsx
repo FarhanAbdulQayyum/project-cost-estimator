@@ -15,14 +15,16 @@ export const Header = () => {
         }
     }
 
-    const handleFileChange = (e: any) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileReader = new FileReader();
-        fileReader.readAsText(e.target.files[0], "UTF-8");
-        fileReader.onload = e => {
-            const fileData = JSON.parse(e?.target?.result as string)
-            data.projects = fileData.projects;
-            data.resources = fileData.resources;
-        };
+        if (e.target && e.target.files) {
+            fileReader.readAsText(e.target.files[0], "UTF-8");
+            fileReader.onload = e => {
+                const fileData = JSON.parse(e?.target?.result as string)
+                data.projects = fileData.projects;
+                data.resources = fileData.resources;
+            };
+        }
     }
 
     const onUploadClick = () => {

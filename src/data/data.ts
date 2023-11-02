@@ -1,6 +1,4 @@
-import { mockResources } from "./mockData";
-
-export let data: IData = { resources: [], projects: [] };
+export const data: IData = { resources: [], projects: [] };
 
 export const getNewId = () => {
     if (!data.projects.length) return 1
@@ -14,10 +12,10 @@ export const getNewId = () => {
 
 export const getProjectById = (id: number) => data.projects.find(project => project.id === id);
 
-const findNodeById = (data: any, id: number): ISubProject => {
+const findNodeById = (data: ISubProject | IProject, id: number): ISubProject => {
     let result = data;
 
-    const search = (node: ISubProject) => {
+    const search = (node: ISubProject | IProject) => {
         if (node.id === id) {
             result = node;
         }
@@ -28,15 +26,14 @@ const findNodeById = (data: any, id: number): ISubProject => {
 
     search(data);
 
-    return result;
+    return result as ISubProject;
 }
 
 const getAllRerourcesFromProject = (project: IProject) => {
     const resources: IProjectResource[] = []
-
-    const search = (node: { children: any[], type?: string }) => {
-        if (node.type && node.type === 'resource_container') {
-            resources.push(...node.children)
+    const search = (node: ISubProject | IProject) => {
+        if ('type' in node && node.type === 'resource_container') {
+            resources.push(...node.children as IProjectResource[])
         }
         if (node.children) {
             node.children.forEach(search);
@@ -92,8 +89,8 @@ export const updateResourceInState = (id: number, project: IProject, updateResou
 }
 
 const calculateTotal = (project: IProject) => {
-    const calTotals = (project: any) => {
-        if (project.type === "resource_container") {
+    const calTotals = (project: IProject | ISubProject) => {
+        if ('type' in project && project.type === "resource_container") {
             project.total = project.children.reduce((total: number, child: IProjectResource) => {
                 return total + child.total
             }, 0)

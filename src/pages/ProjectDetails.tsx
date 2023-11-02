@@ -23,7 +23,7 @@ export const ProjectDetails = () => {
     const [showRemoveItemModal, setShowRemoveItemModal] = useState(false);
     const [itemToRemove, setItemToRemove] = useState<IItemToRemove>({ parentId: -1, item: { id: -1, name: '' } });
     const [isSummaryModalVisible, setIsSummaryModalVisible] = useState(false);
-    const [resourceSummary, setResourceSummary] = useState<any[]>([]);
+    const [resourceSummary, setResourceSummary] = useState<IProjectResource[]>([]);
 
 
     const onUpdateResource = (id: number, currentResource: Partial<IProjectResource>, operation: ResourceModalMode) => {

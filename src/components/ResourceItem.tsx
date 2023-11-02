@@ -19,7 +19,7 @@ interface IResourceItemProps {
 }
 
 export const ResourceItem = ({ resource: { name, sku, unitPrice }, onRemoveResource }: IResourceItemProps) => {
-    const onDelete = (e: any) => {
+    const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         onRemoveResource(name);
     }

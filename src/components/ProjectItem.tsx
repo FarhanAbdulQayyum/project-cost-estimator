@@ -22,7 +22,7 @@ export const ProjectItem = ({ name, id, onRemove }: { name: string, id: number, 
         navigate('/project-details', { state: { id } })
     }
 
-    const onDelete = (e: any) => {
+    const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         onRemove({ id, name });
     }

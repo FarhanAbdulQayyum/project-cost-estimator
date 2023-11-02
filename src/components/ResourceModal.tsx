@@ -48,7 +48,7 @@ export const ResourceModal = ({ isOpen, onClose, onSave, resourceToUpdate, mode 
 
     const autoCompleteChanged = (inputStr: string) => setValue("resource.name", inputStr)
 
-    const autoCompleteSelected = (item: any) => {
+    const autoCompleteSelected = (item: IResource) => {
         setValue("resource.name", item.name);
         setValue("resource.sku", item.sku);
         setValue("resource.unitPrice", item.unitPrice)

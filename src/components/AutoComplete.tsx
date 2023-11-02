@@ -1,5 +1,5 @@
 import { Box, Input, InputGroup, InputRightElement, List, ListItem } from "@chakra-ui/react"
-import { ChangeEvent, ChangeEventHandler, useState } from "react"
+import { useState } from "react"
 import { scrollStyle } from "../globalStyles";
 import { CloseIcon } from "@chakra-ui/icons";
 

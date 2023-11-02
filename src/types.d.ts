@@ -11,7 +11,7 @@ interface IProjectResource {
 type SubProjectOrResourceContainer<T> =
     T extends 'sub_project' ? ISubProject[] :
     T extends 'resource_container' ? IProjectResource[] :
-    T extends 'unkown' ? any[] : never;
+    T extends 'unkown' ? ISubProject[] | IProjectResource[] : never;
 
 interface ISubProject {
     id: number
