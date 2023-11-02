@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { routes } from "./routes"
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, { basename: "/project-cost-estimator" });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
