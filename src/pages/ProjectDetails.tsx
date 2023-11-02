@@ -1,4 +1,4 @@
-import { Box, Button, Editable, EditableInput, EditablePreview, HStack, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Editable, EditableInput, EditablePreview, HStack, Heading, Input, Text, VStack } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
 import { addResourceInState, addSubProject, data, getProjectById, getResourceSummary, removeItemInState, renameItem, updateResourceInState, updateTotalsInProject } from "../data/data";
 import { useState } from "react";
@@ -99,8 +99,10 @@ export const ProjectDetails = () => {
     if (!project) {
         return (
             <>
-                <Text>No Project Selected</Text>
-                <Button onClick={gotoMyProjects}>My Projects</Button>
+                <VStack alignItems="center" position="absolute" top="40%" right="30%" color="gray.600">
+                    <Heading fontWeight="semibold" fontSize="27px">No Project Selected</Heading>
+                    <Button size="sm" colorScheme="blue" onClick={gotoMyProjects}>My Projects</Button>
+                </VStack>
             </>
         )
     }
